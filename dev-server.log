@@ -1,0 +1,31 @@
+
+> chenyifeng-portfolio@0.1.0 dev
+> vite
+
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m2988[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.81.254:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m21:03:03[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+[2m22:28:29[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+[2m21:58:43[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+[2m21:58:52[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+[2m21:59:00[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+[2m22:06:05[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+[2m22:06:10[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+[2m22:36:54[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx[22m
+[2m22:36:56[22m [36m[1m[vite][22m[39m [32m✨ new dependencies optimized: [33mgsap, gsap/ScrollTrigger[32m[39m
+[2m22:36:56[22m [36m[1m[vite][22m[39m [32m✨ optimized dependencies changed. reloading[39m
+[2m22:37:05[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx[22m
+[2m22:37:18[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Hero.jsx[22m
+[2m22:37:27[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Hero.jsx[22m
+[2m22:37:36[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m22:37:55[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+[2m22:38:03[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Projects.jsx[22m
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice

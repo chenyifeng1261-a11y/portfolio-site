@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-export default function PdfEntry({ title, en, desc, src, icon = '▤' }) {
+export default function PdfEntry({ title, en, desc, src, icon = '▤', external = false }) {
   const [open, setOpen] = useState(false)
   const [isFull, setIsFull] = useState(false)
   const stageRef = useRef(null)
@@ -46,7 +46,7 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤' }) {
   return (
     <section className="pdf-entry">
       <div className="container">
-        <article className="pdf-card reveal" onClick={() => setOpen(true)}>
+        <article className="pdf-card reveal" onClick={() => (external ? window.open(src, '_blank', 'noopener') : setOpen(true))}>
           <div className="pdf-card-glow" />
           <div className="pdf-card-icon">
             <span>{icon}</span>
@@ -58,8 +58,8 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤' }) {
             <p>{desc}</p>
           </div>
           <div className="pdf-card-btn">
-            <span className="pcb-main">嵌入预览</span>
-            <span className="pcb-sub">Open Viewer · 点击打开</span>
+            <span className="pcb-main">{external ? '下载 PDF' : '嵌入预览'}</span>
+            <span className="pcb-sub">{external ? 'Download · 新标签打开' : 'Open Viewer · 点击打开'}</span>
           </div>
           <span className="pdf-card-arrow">→</span>
         </article>

@@ -28,9 +28,10 @@ function App() {
         <PdfEntry
           title="作品集 PDF"
           en="Portfolio PDF"
-          desc="完整项目作品集在线预览 —— 包含杏栖 6 组 / 明樾 6 组 / 竹霖 5 组等全部作品图集，按原始排版直接查看。"
-          src="/documents/portfolio.pdf"
+          desc="完整项目作品集 —— 包含杏栖 6 组 / 明樾 6 组 / 竹霖 5 组等全部作品图集，按原始排版下载查看。"
+          src="https://github.com/chenyifeng1261-a11y/portfolio-site/releases/download/v1.0.0/portfolio.pdf"
           icon="◈"
+          external
         />
         <Skills />
         <PdfEntry

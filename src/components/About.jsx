@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import PdfViewer from './PdfViewer'
 
 const edu = [
   {
@@ -505,7 +506,7 @@ export default function About() {
               </div>
             </div>
             <div className="pdf-frame">
-              <iframe key={viewer.src} src={viewer.src} title={viewer.title} frameBorder="0" />
+              <PdfViewer key={viewer.src} src={viewer.src} title={viewer.title} />
             </div>
             <div className="pdf-hint">
               <span>ESC to close · Fullscreen / New Tab · Inline preview</span>

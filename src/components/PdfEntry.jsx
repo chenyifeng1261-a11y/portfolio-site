@@ -226,6 +226,22 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤', external 
           .pdf-card-btn { text-align: left; }
           .pdf-card-arrow { display: none; }
           .pdf-toolbar-title i { display: none; }
+          .pdf-toolbar { padding: 10px 14px; gap: 10px; }
+          .pdf-toolbar-title b { font-size: 13.5px; }
+          .pt-btn { padding: 5px 10px; font-size: 11px; gap: 4px; }
+          .pdf-hint { padding: 8px 14px; font-size: 10px; }
+        }
+
+        @media (max-width: 600px) {
+          .pdf-modal { padding: 14px; }
+          .pdf-toolbar { padding: 8px 10px; gap: 8px; }
+          .pdf-toolbar-title { gap: 8px; }
+          .pt-icon { font-size: 13px; }
+          .pdf-toolbar-title b { font-size: 12px; }
+          .pdf-toolbar-actions { gap: 6px; }
+          .pt-btn { padding: 4px 9px; font-size: 10.5px; }
+          .pdf-toolbar-actions a { display: none; }
+          .pdf-hint { padding: 7px 10px; font-size: 9.5px; letter-spacing: 0.06em; }
         }
       `}</style>
     </section>

@@ -153,7 +153,7 @@ export default function Contact() {
 
         @media (max-width: 760px) {
           .contact-actions { flex-direction: column; align-items: center; }
-          .contact-big { min-width: 100%; }
+          .contact-big { min-width: 0; width: 88%; max-width: 420px; }
           .contact-foot { flex-direction: column; gap: 14px; text-align: center; }
         }
       `}</style>

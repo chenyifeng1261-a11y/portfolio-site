@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import PdfViewer from './PdfViewer'
 
 export default function PdfEntry({ title, en, desc, src, icon = '▤', external = false }) {
   const [open, setOpen] = useState(false)
@@ -93,12 +94,7 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤', external 
               </div>
             </div>
             <div className="pdf-frame">
-              <iframe
-                key={src}
-                src={src}
-                title={title}
-                frameBorder="0"
-              />
+              <PdfViewer src={src} title={title} />
             </div>
             <div className="pdf-hint">
               <span>ESC to close · Fullscreen / New Tab · Inline preview</span>
@@ -214,8 +210,7 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤', external 
         .pt-btn:hover { background: rgba(255, 255, 255, 0.32); transform: translateY(-1px); }
         .pt-close { background: rgba(0, 0, 0, 0.22); }
         .pt-close:hover { background: var(--orange-red); }
-        .pdf-frame { flex: 1; min-height: 0; background: #ececec; }
-        .pdf-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .pdf-frame { flex: 1; min-height: 0; background: #ececec; overflow: hidden; }
         .pdf-hint {
           flex: none;
           padding: 10px 22px;

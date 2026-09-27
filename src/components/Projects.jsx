@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import PdfViewer from './PdfViewer'
 
 // 精选项目：图片按 PDF 作品集原顺序（杏栖 6 组 / 明樾 6 组 / 竹霖 5 组）
 const projects = [
@@ -181,8 +182,17 @@ const socialQr = [
 export default function Projects() {
   const [lightbox, setLightbox] = useState(null)
   const [pdfLightbox, setPdfLightbox] = useState(null)
+  const [imgLoaded, setImgLoaded] = useState(false)
 
-  const openLightbox = (images, index, title) => setLightbox({ images, index: index || 0, title })
+  const openLightbox = (images, index, title) => {
+    setLightbox({ images, index: index || 0, title })
+    setImgLoaded(false)
+    // 打开灯箱即预加载全部大图，避免切换时慢加载显示占位小图
+    images.forEach((src) => {
+      const im = new Image()
+      im.src = src
+    })
+  }
   const closeLightbox = () => setLightbox(null)
   const openPdfLightbox = (pdf, projectTitle) => setPdfLightbox({ ...pdf, projectTitle })
 
@@ -203,12 +213,16 @@ export default function Projects() {
     vids.forEach((v) => io.observe(v))
     return () => io.disconnect()
   }, [])
-  const prevImage = () =>
+  const prevImage = () => {
+    setImgLoaded(false)
     setLightbox((lb) =>
       lb ? { ...lb, index: (lb.index - 1 + lb.images.length) % lb.images.length } : null
     )
-  const nextImage = () =>
+  }
+  const nextImage = () => {
+    setImgLoaded(false)
     setLightbox((lb) => (lb ? { ...lb, index: (lb.index + 1) % lb.images.length } : null))
+  }
 
   useEffect(() => {
     if (!lightbox && !pdfLightbox) return
@@ -435,9 +449,13 @@ export default function Projects() {
             <div className="lb-stage">
               <img
                 key={lightbox.index}
-                className="lb-img"
+                className={`lb-img${imgLoaded ? ' lb-img-ok' : ''}`}
                 src={lightbox.images[lightbox.index]}
                 alt={lightbox.title}
+                onLoad={() => setImgLoaded(true)}
+                ref={(el) => {
+                  if (el && el.complete && el.naturalWidth > 0) setImgLoaded(true)
+                }}
               />
               {lightbox.images.length > 1 && (
                 <>
@@ -483,13 +501,7 @@ export default function Projects() {
               </div>
             </div>
             <div className={`pdf-lb-frame ${pdfLightbox.pageRatio ? 'pdf-lb-frame-fit' : ''}`}>
-              <iframe
-                key={pdfLightbox.src}
-                src={pdfLightbox.src}
-                title={pdfLightbox.en}
-                frameBorder="0"
-                style={pdfLightbox.pageRatio ? { aspectRatio: `${pdfLightbox.pageRatio} / 1` } : undefined}
-              />
+              <PdfViewer src={pdfLightbox.src} title={pdfLightbox.en} />
             </div>
             <div className="pdf-lb-hint">
               ESC 关闭 · Open in New Tab for the best reading experience
@@ -778,7 +790,10 @@ export default function Projects() {
           box-shadow: 0 30px 120px rgba(0, 0, 0, 0.5), 0 0 80px rgba(255, 107, 44, 0.20);
           animation: lbImg 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
           background: #fff;
+          opacity: 0;
         }
+        .lb-img-ok { opacity: 1; }
+        .lb-img.lb-img-ok { animation: lbImg 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
         @keyframes lbImg { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
         .lb-nav {
           position: absolute; top: 50%; transform: translateY(-50%);
@@ -848,18 +863,9 @@ export default function Projects() {
           text-decoration: none;
         }
         .plb-btn:hover { background: rgba(255, 255, 255, 0.32); }
-        .pdf-lb-frame { flex: 1; min-height: 0; background: #ececec; }
-        .pdf-lb-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-        /* 横版 PDF（16:9 封面）：iframe 按页面比例适配并居中，整页完整显示，避免只露顶部/底部被裁 */
-        .pdf-lb-frame-fit { display: flex; align-items: center; justify-content: center; background: #e6e6e6; }
-        .pdf-lb-frame-fit iframe {
-          height: 100%;
-          width: auto;
-          max-width: 100%;
-          margin: auto;
-          display: block;
-          box-shadow: 0 14px 44px rgba(0, 0, 0, 0.28);
-        }
+        .pdf-lb-frame { flex: 1; min-height: 0; background: #ececec; overflow: hidden; }
+        /* 横版 PDF：容器保持占满，PDF.js 渲染器内部按宽度自适应并居中 */
+        .pdf-lb-frame-fit { background: #e6e6e6; }
         .pdf-lb-hint {
           flex: none;
           padding: 10px 22px;

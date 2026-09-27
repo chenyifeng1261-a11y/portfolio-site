@@ -172,8 +172,8 @@ export default function Hero() {
           .hero-role { font-size: 13px; padding: 8px 14px; gap: 7px; }
           .hero-role em { font-size: 10px; }
           .hero-desc { font-size: 15px; line-height: 1.85; margin-bottom: 32px; }
-          .hero-actions { flex-direction: column; align-items: stretch; gap: 12px; }
-          .hero-actions .btn { width: 100%; }
+          .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
+          .hero-actions .btn { width: auto; min-width: 0; max-width: 300px; }
           .hero-meta { bottom: 24px; }
         }
 

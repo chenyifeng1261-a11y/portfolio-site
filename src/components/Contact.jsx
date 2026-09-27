@@ -44,7 +44,7 @@ export default function Contact() {
 
         <div className="contact-foot reveal">
           <span>© 2026 陈一峰 Chen Yifeng · All Rights Reserved</span>
-          <a className="back-top" href="#home">回到顶部 ↑</a>
+          <a className="back-top" href="#home">Back to Top ↑</a>
         </div>
       </div>
 
@@ -138,6 +138,7 @@ export default function Contact() {
           -webkit-backdrop-filter: blur(12px) saturate(160%);
         }
         .contact-tags i { font-style: normal; color: #fff; }
+        .contact-tags em { display: block; font-style: normal; font-family: var(--font-en); font-size: 10px; letter-spacing: 0.14em; color: #5b2400; opacity: 0.72; margin-top: 2px; }
 
         .contact-foot {
           margin-top: 90px; width: 100%;

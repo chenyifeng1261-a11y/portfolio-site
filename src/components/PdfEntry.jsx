@@ -81,14 +81,14 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤', external 
                 <i>{en}</i>
               </div>
               <div className="pdf-toolbar-actions">
-                <a className="pt-btn" href={src} target="_blank" rel="noreferrer" title="在新标签打开">
-                  <span>新标签</span>
+                <a className="pt-btn" href={src} target="_blank" rel="noreferrer" title="Open in new tab">
+                  <span>New Tab</span>
                 </a>
-                <button className="pt-btn" onClick={toggleFull} title="全屏切换">
-                  <span>{isFull ? '退出全屏' : '全屏'}</span>
+                <button className="pt-btn" onClick={toggleFull} title="Toggle fullscreen">
+                  <span>{isFull ? 'Exit Fullscreen' : 'Fullscreen'}</span>
                 </button>
-                <button className="pt-btn pt-close" onClick={close} title="关闭">
-                  <span>✕ 关闭</span>
+                <button className="pt-btn pt-close" onClick={close} title="Close">
+                  <span>✕ Close</span>
                 </button>
               </div>
             </div>
@@ -101,7 +101,7 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤', external 
               />
             </div>
             <div className="pdf-hint">
-              <span>ESC 关闭 · 支持全屏 / 新标签打开 · 页面内直接预览</span>
+              <span>ESC to close · Fullscreen / New Tab · Inline preview</span>
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤', external 
           -webkit-backdrop-filter: blur(18px) saturate(160%);
           cursor: pointer;
           overflow: hidden;
-          transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s, border-color 0.45s;
+          transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s;
           box-shadow: 0 18px 60px rgba(255, 122, 0, 0.14);
         }
         .pdf-card:hover {
@@ -133,7 +133,7 @@ export default function PdfEntry({ title, en, desc, src, icon = '▤', external 
         .pdf-card-glow {
           position: absolute; inset: 0; pointer-events: none;
           background: radial-gradient(360px 180px at 88% 50%, rgba(255, 196, 0, 0.30), transparent 70%);
-          opacity: 0; transition: opacity 0.45s;
+          opacity: 0; transition: opacity 0.3s;
         }
         .pdf-card:hover .pdf-card-glow { opacity: 1; }
         .pdf-card-icon {

@@ -3,6 +3,7 @@ import Hero from './components/Hero.jsx'
 import About from './components/About.jsx'
 import Projects from './components/Projects.jsx'
 import Skills from './components/Skills.jsx'
+import PersonalStats from './components/PersonalStats.jsx'
 import Contact from './components/Contact.jsx'
 import Disclaimer from './components/Disclaimer.jsx'
 import PdfEntry from './components/PdfEntry.jsx'
@@ -28,16 +29,16 @@ function App() {
         <PdfEntry
           title="作品集 PDF"
           en="Portfolio PDF"
-          desc="完整项目作品集 —— 包含杏栖 6 组 / 明樾 6 组 / 竹霖 5 组等全部作品图集，按原始排版下载查看。"
-          src="https://github.com/chenyifeng1261-a11y/portfolio-site/releases/download/v1.0.0/portfolio.pdf"
+          desc="完整项目作品集 —— 包含杏栖 6 组 / 明樾 6 组 / 竹霖 5 组等全部作品图集，点击在线预览，可新标签打开查看。"
+          src="/documents/portfolio.pdf"
           icon="◈"
-          external
         />
         <Skills />
+        <PersonalStats />
         <PdfEntry
           title="个人简历 PDF"
           en="Resume PDF"
-          desc="一页式求职简历在线预览 —— 教育背景、三份社会经历、技能与项目亮点，与页面信息同步更新。"
+          desc="One-page resume — education, internships, skills and project highlights, synced with this site. 一页式求职简历，与页面信息同步。"
           src="/documents/resume.pdf"
           icon="✧"
         />

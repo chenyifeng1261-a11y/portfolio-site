@@ -47,7 +47,7 @@ export default function Hero() {
         </p>
         <div className="hero-actions reveal">
           <a className="btn btn-primary" href="#projects">
-            <span>查看作品</span>
+            <span>查看作品 <i className="btn-en">View Works</i></span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

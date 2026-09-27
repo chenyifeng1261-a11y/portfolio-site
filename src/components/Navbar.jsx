@@ -40,7 +40,7 @@ export default function Navbar() {
           ))}
         </nav>
         <a className="btn btn-primary nav-cta" href="#contact">
-          <span>联系我</span>
+          <span>联系我 <i className="nav-cta-en">Contact</i></span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
             <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -78,6 +78,7 @@ export default function Navbar() {
         .nav-link i { font-style: normal; font-family: var(--font-en); font-size: 10px; letter-spacing: 0.14em; color: var(--ink-3); text-transform: uppercase; }
         .nav-link:hover { background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
         .nav-cta { padding: 12px 24px; font-size: 14px; }
+        .nav-cta-en { font-style: normal; font-family: var(--font-en); font-size: 11px; letter-spacing: 0.12em; opacity: 0.85; margin-left: 6px; }
         @media (max-width: 900px) {
           .nav-links { display: none; }
           .nav-logo-name { display: none; }

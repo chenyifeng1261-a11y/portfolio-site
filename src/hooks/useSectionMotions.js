@@ -62,38 +62,38 @@ function heroIntro(scope) {
 
   // 1) 遮罩揭开（左右两片滑开）
   if (curtainL && curtainR) {
-    tl.to(curtainL, { xPercent: -102, duration: 0.9, ease: 'power4.inOut' }, 0)
-      .to(curtainR, { xPercent: 102, duration: 0.9, ease: 'power4.inOut' }, 0.08)
+    tl.to(curtainL, { xPercent: -102, duration: 0.5, ease: 'power4.inOut' }, 0)
+      .to(curtainR, { xPercent: 102, duration: 0.5, ease: 'power4.inOut' }, 0.05)
       .add(() => {
         curtainL.remove()
         curtainR.remove()
-      }, 1.0)
+      }, 0.58)
   }
 
   // 2) 标题：中文名 位移+压缩归位；英文名 错峰进场
   tl.fromTo(
     hero.querySelector('.hero-cn'),
     { y: 80, scaleY: 0.85, autoAlpha: 0 },
-    { y: 0, scaleY: 1, autoAlpha: 1, duration: 1.2, ease: 'power4.out' },
-    0.35
+    { y: 0, scaleY: 1, autoAlpha: 1, duration: 0.6, ease: 'power4.out' },
+    0.2
   ).fromTo(
     hero.querySelector('.hero-en'),
     { y: 60, x: -40, autoAlpha: 0 },
-    { y: 0, x: 0, autoAlpha: 1, duration: 1.1 },
-    0.55
+    { y: 0, x: 0, autoAlpha: 1, duration: 0.6 },
+    0.3
   )
 
   // 3) 其余元素错峰接入
   const items = [
-    ['.hero-topline', 0.55],
-    ['.hero-roles', 0.72],
-    ['.hero-desc', 0.88],
-    ['.hero-actions', 1.04],
-    ['.hero-meta', 1.2],
+    ['.hero-topline', 0.35],
+    ['.hero-roles', 0.5],
+    ['.hero-desc', 0.65],
+    ['.hero-actions', 0.8],
+    ['.hero-meta', 0.95],
   ]
   items.forEach(([sel, at]) => {
     const el = hero.querySelector(sel)
-    if (el) tl.fromTo(el, { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8 }, at)
+    if (el) tl.fromTo(el, { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45 }, at)
   })
 
   return tl
@@ -110,7 +110,7 @@ function setupSection(sec) {
     tl.fromTo(
       secTag,
       { x: -60, autoAlpha: 0 },
-      { x: 0, autoAlpha: 1, duration: 0.8 },
+      { x: 0, autoAlpha: 1, duration: 0.45 },
       t
     )
     t += 0.05
@@ -120,14 +120,14 @@ function setupSection(sec) {
     tl.fromTo(
       secTitle,
       { y: 140, scale: 1.06, autoAlpha: 0 },
-      { y: 0, scale: 1, autoAlpha: 1, duration: 1.1 },
-      t + 0.05
+      { y: 0, scale: 1, autoAlpha: 1, duration: 0.6 },
+      t + 0.03
     )
     const en = secTitle.querySelector('.en')
     if (en) {
-      tl.fromTo(en, { x: -36, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.9 }, t + 0.3)
+      tl.fromTo(en, { x: -36, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.5 }, t + 0.18)
     }
-    t += 1.4
+    t += 0.75
   }
 
   // 容器的 stagger 目标（排除本 section 的 hero）
@@ -146,9 +146,9 @@ function setupSection(sec) {
     (el) => !containerTargets.has(el) && !el.matches(TITLE_SELECTOR)
   )
   generics.forEach((el, i) => {
-    tl.fromTo(el, { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.9 }, t + i * 0.06)
+    tl.fromTo(el, { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5 }, t + i * 0.04)
   })
-  t += generics.length * 0.06 + 0.05
+  t += generics.length * 0.04 + 0.05
 
   // 卡片 stagger（容器自身若为 reveal 需立即显示终态，仅子项错峰）
   containers.forEach((container) => {
@@ -160,10 +160,10 @@ function setupSection(sec) {
       tl.fromTo(
         kids,
         { y: 60, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.95, stagger: 0.12 },
+        { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.05 },
         t
       )
-      t += 0.3 + kids.length * 0.02
+      t += 0.2 + kids.length * 0.02
     }
   })
 
@@ -174,16 +174,16 @@ function setupSection(sec) {
       tl.fromTo(
         im,
         { clipPath: 'inset(0 0 100% 0)' },
-        { clipPath: 'inset(0 0 0% 0)', duration: 1.15, ease: 'power4.inOut' },
-        t + 0.15
+        { clipPath: 'inset(0 0 0% 0)', duration: 0.6, ease: 'power4.inOut' },
+        t + 0.08
       )
-      t += 0.12
+      t += 0.08
     })
   })
 
   ScrollTrigger.create({
     trigger: sec,
-    start: 'top 82%',
+    start: 'top 62%',
     once: true,
     onEnter: () => tl.play(),
   })
@@ -205,7 +205,7 @@ function buildParallax(scope) {
           trigger: wrap,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 1,
+          scrub: 0.6,
           // 仅在进入滚动区间时临时提升合成层，离开即清理，避免多图常驻 GPU 合成层
           onToggle: (self) => {
             if (self.isActive) im.style.willChange = 'transform'

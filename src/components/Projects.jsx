@@ -6,6 +6,7 @@ const projects = [
   {
     id: '01',
     tag: '空间设计 · 商业空间',
+    en_tag: 'Spatial Design · Commercial',
     year: '2024-2026',
     title: '校企联合项目-金茂北外滩商业空间设计',
     subtitle: '活力引擎·多巴胺商业空间 · Vitality Engine · Dopamine Space',
@@ -29,11 +30,16 @@ const projects = [
       '/images/portfolio-overview-14.webp',
     ],
     alt: '校企联合项目-金茂北外滩商业空间设计',
-    points: ['校企联合', '多巴胺设计', '商业空间'],
+    points: [
+      { zh: '校企联合', en: 'Industry-Academia' },
+      { zh: '多巴胺设计', en: 'Dopamine Design' },
+      { zh: '商业空间', en: 'Commercial Space' },
+    ],
   },
   {
     id: '02',
     tag: '空间设计 · 城市更新',
+    en_tag: 'Spatial Design · Urban Renewal',
     year: '2025',
     title: '杏栖 Ginkgo Nest',
     subtitle: '社区居民中心 · Urban Renewal',
@@ -50,11 +56,16 @@ const projects = [
       '/images/project-ginkgo-6.webp',
     ],
     alt: '杏栖社区居民中心设计',
-    points: ['适老化设计', '在地研究', '光影叙事'],
+    points: [
+      { zh: '适老化设计', en: 'Age-friendly' },
+      { zh: '在地研究', en: 'Site Research' },
+      { zh: '光影叙事', en: 'Light & Shadow' },
+    ],
   },
   {
     id: '03',
     tag: '产品设计 · AI 辅助',
+    en_tag: 'Product Design · AI-assisted',
     year: '2026',
     title: '明樾 Imaginista',
     subtitle: '明制家具的当代应答',
@@ -70,11 +81,16 @@ const projects = [
       '/images/project-mingyue-6.webp',
     ],
     alt: '明樾坐具设计',
-    points: ['用户画像分析', '设计溯源', '材质实验'],
+    points: [
+      { zh: '用户画像分析', en: 'User Persona' },
+      { zh: '设计溯源', en: 'Design Genealogy' },
+      { zh: '材质实验', en: 'Material Lab' },
+    ],
   },
   {
     id: '04',
     tag: '工业设计 · AI 赋能',
+    en_tag: 'Industrial Design · AI-empowered',
     year: '2025',
     title: '竹霖 Bamboo Mist',
     subtitle: '节气香光仪 · 谷雨',
@@ -89,7 +105,35 @@ const projects = [
       '/images/project-bamboo-5.webp',
     ],
     alt: '竹霖香光仪设计',
-    points: ['文化溯源', '结构爆炸', '禅意交互'],
+    points: [
+      { zh: '文化溯源', en: 'Cultural Roots' },
+      { zh: '结构爆炸', en: 'Exploded View' },
+      { zh: '禅意交互', en: 'Zen Interaction' },
+    ],
+  },
+  {
+    id: '05',
+    tag: '设计调研 · 用户研究',
+    en_tag: 'Design Research · User Study',
+    year: '2026',
+    title: '中国商品房室内设计需求的代际跃迁规律与住房需求调研',
+    subtitle: 'Intergenerational Shifts in Housing Design Demand',
+    desc: '面向中国商品房室内设计的深度调研：梳理自 1950 年代筒子楼以来住房五世代跃迁规律，结合问卷与访谈刻画改善性住房需求画像。全案分《调研任务书》与《稳健的弹性主义》两册。',
+    en: 'A two-part research dossier on China\u2019s housing design demand — five generations of evolution and improvement-led needs, grounded in national statistics and field interviews.',
+    badges: [
+      { zh: '优秀课程作业', en: 'Outstanding Coursework' },
+      { zh: '夏季学期院长作业', en: "Dean's Award · Summer Semester" },
+    ],
+    pdfs: [
+      { label: '调研任务书', en: 'Research Brief', src: '/documents/research-brief.pdf', cover: '/images/pdf-research-brief-cover.jpg', pageRatio: 612 / 792 },
+      { label: '设计调研', en: 'Design Research', src: '/documents/design-research.pdf', cover: '/images/pdf-design-research-cover.jpg', pageRatio: 1920 / 1080 },
+    ],
+    alt: '中国商品房室内设计需求的代际跃迁调研',
+    points: [
+      { zh: '五世代跃迁', en: '5 Generations' },
+      { zh: '问卷与访谈', en: 'Survey & Interview' },
+      { zh: '研报交叉验证', en: 'Cross-validated' },
+    ],
   },
 ]
 
@@ -128,17 +172,19 @@ const moreWorks = [
 
 // 社交媒体账号二维码（横向一行等高）
 const socialQr = [
-  { name: '抖音', src: '/images/qr-douyin.png' },
-  { name: '小红书', src: '/images/qr-xiaohongshu.png' },
-  { name: 'B 站', src: '/images/qr-bilibili.png' },
-  { name: '视频号', src: '/images/qr-shipinhao.png' },
+  { name: '抖音', en: 'Douyin', src: '/images/qr-douyin.webp' },
+  { name: '小红书', en: 'Xiaohongshu', src: '/images/qr-xiaohongshu.webp' },
+  { name: 'B 站', en: 'Bilibili', src: '/images/qr-bilibili.webp' },
+  { name: '视频号', en: 'Channels', src: '/images/qr-shipinhao.webp' },
 ]
 
 export default function Projects() {
   const [lightbox, setLightbox] = useState(null)
+  const [pdfLightbox, setPdfLightbox] = useState(null)
 
   const openLightbox = (images, index, title) => setLightbox({ images, index: index || 0, title })
   const closeLightbox = () => setLightbox(null)
+  const openPdfLightbox = (pdf, projectTitle) => setPdfLightbox({ ...pdf, projectTitle })
 
   // 性能：项目视频仅进入可视区域时播放，离开立即暂停，避免长滚动下常驻硬解占用
   useEffect(() => {
@@ -165,9 +211,12 @@ export default function Projects() {
     setLightbox((lb) => (lb ? { ...lb, index: (lb.index + 1) % lb.images.length } : null))
 
   useEffect(() => {
-    if (!lightbox) return
+    if (!lightbox && !pdfLightbox) return
     const onKey = (e) => {
-      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'Escape') {
+        closeLightbox()
+        setPdfLightbox(null)
+      }
       if (e.key === 'ArrowLeft') prevImage()
       if (e.key === 'ArrowRight') nextImage()
     }
@@ -177,7 +226,7 @@ export default function Projects() {
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
     }
-  }, [lightbox])
+  }, [lightbox, pdfLightbox])
 
   return (
     <section id="projects" className="projects">
@@ -190,55 +239,96 @@ export default function Projects() {
           <span className="en">Selected Projects · click a card to open full case gallery</span>
         </h2>
         <p className="sec-sub reveal">
-          从空间到产品，从线下到线上 —— 四组代表作品，展示我在空间设计、AI 赋能产品中的完整实践链路。
-          <b className="sec-hint">点击卡片查看全部大图</b>
+          从空间到产品，从线下到线上 —— 五组代表作品，展示我在空间设计、AI 赋能产品与设计调研中的完整实践链路。
+          <span className="en">From space to product, offline to online — five selected works spanning spatial design, AI-empowered products and design research.</span>
+          <b className="sec-hint">点击卡片查看全部大图 <i>Click a card to view gallery</i></b>
         </p>
 
         <div className="project-list">
           {projects.map((p, i) => (
             <article
               key={p.id}
-              className={`project-card reveal ${i % 2 === 1 ? 'project-reverse' : ''}`}
-              onClick={() => openLightbox(p.images, 0, p.title)}
+              className={`project-card reveal ${i % 2 === 1 ? 'project-reverse' : ''} ${p.pdfs ? 'project-pdf-card' : ''}`}
+              onClick={p.pdfs ? undefined : () => openLightbox(p.images, 0, p.title)}
             >
               <div className="project-media">
-                <div className="project-img-wrap">
-                  {p.video ? (
-                    <video
-                      className="project-video"
-                      src={p.video}
-                      poster={p.cover}
-                      muted
-                      loop
-                      autoPlay
-                      playsInline
-                      preload="metadata"
-                      aria-hidden="true"
-                      tabIndex="-1"
-                    />
-                  ) : (
-                    <img src={p.cover} alt={p.alt} loading="lazy" />
-                  )}
-                  <div className="project-video-grad" />
-                  <div className="project-img-grad" />
-                  <div className="project-zoom">
-                    <span>⌕</span>
-                    点击查看 {p.images.length} 张大图
+                {p.pdfs ? (
+                  <div className="project-pdfs">
+                    {p.pdfs.map((pdf) => (
+                      <div
+                        key={pdf.src}
+                        className="pdf-thumb"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          openPdfLightbox(pdf, p.title)
+                        }}
+                      >
+                        <img src={pdf.cover} alt={pdf.label} loading="lazy" />
+                        <div className="pdf-thumb-shade" />
+                        <div className="pdf-thumb-body">
+                          <span className="pdf-thumb-icon">▤</span>
+                          <b>{pdf.label}</b>
+                          <i>{pdf.en}</i>
+                          <em>PDF Preview</em>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
+                ) : (
+                  <div className="project-img-wrap">
+                    {p.video ? (
+                      <video
+                        className="project-video"
+                        src={p.video}
+                        poster={p.cover}
+                        muted
+                        loop
+                        autoPlay
+                        playsInline
+                        preload="metadata"
+                        aria-hidden="true"
+                        tabIndex="-1"
+                      />
+                    ) : (
+                      <img src={p.cover} alt={p.alt} loading="lazy" />
+                    )}
+                    <div className="project-video-grad" />
+                    <div className="project-img-grad" />
+                    <div className="project-zoom">
+                      <span>⌕</span>
+                      点击查看 {p.images.length} 张大图
+                      <i>View {p.images.length} images</i>
+                    </div>
+                  </div>
+                )}
                 <span className="project-num">{p.id}</span>
                 <span className="project-year">{p.year}</span>
               </div>
 
               <div className="project-info">
-                <div className="project-tag">{p.tag}</div>
+                <div className="project-tag">
+                  {p.tag}
+                  {p.en_tag && <em>{p.en_tag}</em>}
+                </div>
                 <h3 className="project-title">{p.title}</h3>
+                {p.badges && (
+                  <div className="project-badges">
+                    {p.badges.map((b) => (
+                      <span key={b.en} className="badge-award">
+                        {b.zh} · <em>{b.en}</em>
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <div className="project-sub">{p.subtitle}</div>
                 <p className="project-desc">{p.desc}</p>
                 <span className="en project-en">{p.en}</span>
                 <div className="project-points">
                   {p.points.map((pt) => (
-                    <span key={pt}>{pt}</span>
+                    <span key={pt.zh}>
+                      {pt.zh}
+                      {pt.en && <em>{pt.en}</em>}
+                    </span>
                   ))}
                 </div>
                 <div className="project-cta">
@@ -295,17 +385,25 @@ export default function Projects() {
             {socialQr.map((q) => (
               <figure className="qr-item" key={q.name}>
                 <img src={q.src} alt={q.name} loading="lazy" />
-                <figcaption>{q.name}</figcaption>
+                <figcaption>
+                  {q.name}
+                  <em>{q.en}</em>
+                </figcaption>
               </figure>
             ))}
           </div>
           <div className="xhs-links reveal">
-            <h4 className="xhs-work">代表作</h4>
-            <p className="xhs-heading">我曾负责运营的自媒体账号及其执行的视频剪辑</p>
+            <h4 className="xhs-work">
+              代表作 <em>Featured Works</em>
+            </h4>
+            <p className="xhs-heading">
+              我曾负责运营的自媒体账号及其执行的视频剪辑
+              <span className="en">Accounts I operated and video edits I produced.</span>
+            </p>
             <ul>
               <li>
                 <a
-                  href="https://xhslink.cn/o/6tHKwfvmc2x"
+                  href="https://www.xiaohongshu.com/discovery/item/6a96d5990000000028038379?source=webshare&xhsshare=pc_web&xsec_token=ABaMm0fZhuDIJiakE6tDj2imZ94M4_59xTBrIdAYZP80A=&xsec_source=pc_share"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -365,6 +463,43 @@ export default function Projects() {
         document.body
       )}
 
+      {/* PDF 灯箱（iframe 内嵌预览，复用灯箱交互） */}
+      {createPortal(
+        pdfLightbox && (
+        <div className="pdf-lb-modal" onClick={() => setPdfLightbox(null)}>
+          <div className="pdf-lb-panel" onClick={(e) => e.stopPropagation()}>
+            <div className="pdf-lb-toolbar">
+              <div className="pdf-lb-title">
+                <b>{pdfLightbox.label}</b>
+                <i>{pdfLightbox.en}</i>
+              </div>
+              <div className="pdf-lb-actions">
+                <a className="plb-btn" href={pdfLightbox.src} target="_blank" rel="noreferrer">
+                  新标签 New Tab
+                </a>
+                <button className="plb-btn" onClick={() => setPdfLightbox(null)}>
+                  ✕ 关闭 Close
+                </button>
+              </div>
+            </div>
+            <div className={`pdf-lb-frame ${pdfLightbox.pageRatio ? 'pdf-lb-frame-fit' : ''}`}>
+              <iframe
+                key={pdfLightbox.src}
+                src={pdfLightbox.src}
+                title={pdfLightbox.en}
+                frameBorder="0"
+                style={pdfLightbox.pageRatio ? { aspectRatio: `${pdfLightbox.pageRatio} / 1` } : undefined}
+              />
+            </div>
+            <div className="pdf-lb-hint">
+              ESC 关闭 · Open in New Tab for the best reading experience
+            </div>
+          </div>
+        </div>
+        ),
+        document.body
+      )}
+
       <style>{`
         .projects { padding: 150px 0; overflow: hidden; }
         .sec-hint {
@@ -373,6 +508,7 @@ export default function Projects() {
           border: 1px solid var(--line-strong); border-radius: 999px;
           padding: 6px 16px; vertical-align: middle;
         }
+        .sec-hint i { font-style: normal; font-family: var(--font-en); font-size: 11px; color: var(--ink-3); margin-left: 4px; }
         .project-list { margin-top: 72px; display: flex; flex-direction: column; gap: 110px; }
 
         .project-card {
@@ -403,7 +539,7 @@ export default function Projects() {
         }
         .project-img-wrap img {
           width: 100%; height: 100%; object-fit: cover;
-          transition: transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1), scale 1.1s cubic-bezier(0.2, 0.8, 0.2, 1), filter 1.1s;
+          transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), scale 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.35s;
         }
         .project-card:hover .project-img-wrap img { scale: 1.06; }
         .project-video {
@@ -411,7 +547,7 @@ export default function Projects() {
           width: 100%; height: 100%;
           object-fit: cover;
           pointer-events: none;
-          transition: transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+          transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .project-card:hover .project-video { transform: scale(1.06); }
         .project-video-grad {
@@ -437,6 +573,7 @@ export default function Projects() {
         .project-zoom span {
           font-size: 18px; color: var(--orange-red);
         }
+        .project-zoom i { font-style: normal; font-family: var(--font-en); font-size: 11px; color: var(--ink-3); margin-left: 4px; }
         .project-card:hover .project-zoom { opacity: 1; transform: translateX(-50%) translateY(0); }
 
         .project-num {
@@ -460,12 +597,26 @@ export default function Projects() {
           letter-spacing: 0.18em; color: var(--orange-red);
           margin-bottom: 14px;
         }
+        .project-tag em {
+          display: block; font-style: normal;
+          font-family: var(--font-en); font-size: 9.5px; font-weight: 600;
+          letter-spacing: 0.14em; color: var(--ink-3); text-transform: uppercase;
+          margin-top: 3px;
+        }
         .project-title {
           font-family: var(--font-display);
           font-size: clamp(44px, 4.6vw, 76px);
           font-weight: 400; line-height: 1;
           margin-bottom: 8px;
         }
+        .project-badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 16px; }
+        .badge-award {
+          font-size: 12px; font-weight: 600; color: #fff;
+          background: var(--grad-main); border-radius: 999px;
+          padding: 7px 15px;
+          box-shadow: 0 6px 20px rgba(255, 90, 31, 0.30);
+        }
+        .badge-award em { font-style: normal; font-family: var(--font-en); font-size: 10px; opacity: 0.94; letter-spacing: 0.06em; }
         .project-sub { font-family: var(--font-en); font-size: 15px; color: var(--orange-soft); letter-spacing: 0.06em; margin-bottom: 20px; }
         .project-desc { font-size: 15.5px; line-height: 1.95; color: var(--ink-2); max-width: 560px; }
         .project-en { color: var(--ink-3); font-size: 12px; max-width: 560px; margin-top: 8px; }
@@ -473,6 +624,12 @@ export default function Projects() {
         .project-points span {
           font-size: 12.5px; padding: 8px 16px; border-radius: 999px;
           border: 1px solid var(--line-strong); color: var(--ink);
+        }
+        .project-points span em {
+          display: block; font-style: normal;
+          font-family: var(--font-en); font-size: 9.5px; font-weight: 600;
+          color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase;
+          margin-top: 2px;
         }
         .project-cta {
           display: inline-flex; align-items: center; gap: 14px;
@@ -483,6 +640,70 @@ export default function Projects() {
         }
         .project-cta:hover { gap: 22px; color: var(--orange-red); }
         .project-arrow { font-size: 20px; }
+
+        /* 第 5 项目：双 PDF 并列灯箱入口 */
+        .project-pdf-card { align-items: stretch; }
+        .project-pdf-card .project-title {
+          font-size: clamp(30px, 3vw, 44px);
+          line-height: 1.14;
+        }
+        .project-pdf-card .project-media { display: flex; }
+        .project-pdf-card .project-pdfs { height: 100%; }
+        .project-pdf-card .pdf-thumb {
+          aspect-ratio: auto;
+          height: 100%;
+          min-height: 330px;
+        }
+        .project-pdf-card .project-info { padding: 8px 0; }
+        .project-pdfs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+        .pdf-thumb {
+          position: relative;
+          border-radius: var(--radius); overflow: hidden;
+          border: 1px solid var(--line); background: var(--card);
+          aspect-ratio: 2 / 3; cursor: pointer;
+          box-shadow: var(--shadow-glow);
+          transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
+        }
+        .project-card:hover .pdf-thumb {
+          border-color: var(--line-strong);
+          box-shadow: 0 26px 90px rgba(255, 107, 44, 0.26);
+        }
+        .pdf-thumb:hover { transform: translateY(-4px); }
+        .pdf-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; }
+        .pdf-thumb:hover img { transform: scale(1.06); }
+        .pdf-thumb-shade {
+          position: absolute; inset: 0;
+          background: linear-gradient(180deg, rgba(58, 20, 0, 0.04) 28%, rgba(58, 20, 0, 0.74) 100%);
+        }
+        .pdf-thumb-body {
+          position: absolute; left: 0; right: 0; bottom: 0;
+          padding: 14px 16px; color: #fff;
+          display: flex; flex-direction: column; gap: 3px;
+        }
+        .pdf-thumb-icon {
+          width: 36px; height: 36px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 11px; background: var(--grad-main);
+          font-size: 15px; margin-bottom: 7px;
+        }
+        .pdf-thumb-body b { font-size: 16px; line-height: 1.3; }
+        .pdf-thumb-body i { font-style: normal; font-family: var(--font-en); font-size: 11.5px; letter-spacing: 0.08em; color: var(--gold); }
+        .pdf-thumb-body em {
+          font-style: normal; font-family: var(--font-en);
+          font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.74); margin-top: 4px;
+        }
+        .pdf-thumb::after {
+          content: '⌕';
+          position: absolute; right: 13px; top: 13px;
+          width: 38px; height: 38px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(6px);
+          color: var(--orange-red); font-size: 17px;
+          opacity: 0; transition: opacity 0.35s;
+        }
+        .pdf-thumb:hover::after { opacity: 1; }
 
         .more-works { margin-top: 130px; }
         .more-title { font-size: 26px; margin-bottom: 34px; }
@@ -504,7 +725,7 @@ export default function Projects() {
           box-shadow: 0 22px 60px rgba(255, 107, 44, 0.22);
         }
         .more-img { aspect-ratio: 4 / 3; overflow: hidden; position: relative; }
-        .more-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s, scale 0.9s; }
+        .more-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s, scale 0.35s; }
         .more-card:hover .more-img img { scale: 1.08; }
         .more-zoom {
           position: absolute; right: 14px; top: 14px;
@@ -586,6 +807,69 @@ export default function Projects() {
         .lb-title b { font-family: var(--font-en); font-size: 17px; letter-spacing: 0.05em; }
         .lb-title span { font-size: 12px; color: rgba(255,255,255,0.7); font-family: var(--font-en); letter-spacing: 0.08em; }
 
+        /* ---------- PDF 灯箱（iframe 内嵌预览） ---------- */
+        .pdf-lb-modal {
+          position: fixed; inset: 0; z-index: 9999;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(38, 18, 4, 0.92);
+          backdrop-filter: blur(14px);
+          animation: lbFade 0.3s ease;
+          padding: 30px;
+        }
+        .pdf-lb-panel {
+          width: min(1500px, 96vw);
+          height: min(88vh, 900px);
+          display: flex; flex-direction: column;
+          background: #fff;
+          border-radius: var(--radius);
+          border: 1px solid var(--line-strong);
+          overflow: hidden;
+          box-shadow: 0 40px 140px rgba(0, 0, 0, 0.5), 0 0 90px rgba(255, 122, 0, 0.18);
+          animation: lbImg 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .pdf-lb-toolbar {
+          display: flex; align-items: center; justify-content: space-between; gap: 16px;
+          padding: 14px 22px;
+          background: var(--grad-main);
+          color: #fff;
+          flex: none;
+        }
+        .pdf-lb-title { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .pdf-lb-title b { font-size: 16px; white-space: nowrap; }
+        .pdf-lb-title i { font-style: normal; font-family: var(--font-en); font-size: 11.5px; letter-spacing: 0.1em; opacity: 0.9; white-space: nowrap; }
+        .pdf-lb-actions { display: flex; gap: 8px; flex: none; }
+        .plb-btn {
+          display: inline-flex; align-items: center; gap: 6px;
+          padding: 9px 16px; border-radius: 999px;
+          border: 1px solid rgba(255, 255, 255, 0.55);
+          background: rgba(255, 255, 255, 0.16);
+          color: #fff; font-family: var(--font-en); font-size: 12.5px; font-weight: 600;
+          cursor: pointer; transition: background 0.3s;
+          text-decoration: none;
+        }
+        .plb-btn:hover { background: rgba(255, 255, 255, 0.32); }
+        .pdf-lb-frame { flex: 1; min-height: 0; background: #ececec; }
+        .pdf-lb-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+        /* 横版 PDF（16:9 封面）：iframe 按页面比例适配并居中，整页完整显示，避免只露顶部/底部被裁 */
+        .pdf-lb-frame-fit { display: flex; align-items: center; justify-content: center; background: #e6e6e6; }
+        .pdf-lb-frame-fit iframe {
+          height: 100%;
+          width: auto;
+          max-width: 100%;
+          margin: auto;
+          display: block;
+          box-shadow: 0 14px 44px rgba(0, 0, 0, 0.28);
+        }
+        .pdf-lb-hint {
+          flex: none;
+          padding: 10px 22px;
+          text-align: center;
+          font-family: var(--font-en); font-size: 11.5px; letter-spacing: 0.12em;
+          color: var(--ink-2);
+          background: rgba(255, 243, 222, 0.9);
+          border-top: 1px solid var(--line);
+        }
+
         .more-cap-label { text-align: center; padding: 20px; }
         .more-cap-label b { font-family: var(--font-display); font-size: 26px; letter-spacing: 0.02em; color: var(--orange-red); }
 
@@ -601,13 +885,24 @@ export default function Projects() {
           box-shadow: 0 18px 46px rgba(255, 107, 44, 0.18);
         }
         .qr-item figcaption { font-size: 14px; font-weight: 700; color: var(--ink); letter-spacing: 0.1em; }
+        .qr-item figcaption em {
+          display: block; font-style: normal;
+          font-family: var(--font-en); font-size: 10px; font-weight: 600;
+          color: var(--ink-3); letter-spacing: 0.12em; text-transform: uppercase;
+          margin-top: 3px;
+        }
         .xhs-links { margin: 64px auto 0; max-width: 720px; }
         .xhs-work {
           text-align: center; font-family: var(--font-display); line-height: 1.15;
           font-size: 42px; font-weight: 700; letter-spacing: 0.12em;
           color: var(--orange-red); margin-bottom: 10px;
         }
+        .xhs-work em {
+          font-style: normal; font-family: var(--font-en); font-size: 15px; font-weight: 600;
+          letter-spacing: 0.18em; color: var(--ink-2); margin-left: 8px; vertical-align: middle;
+        }
         .xhs-heading { text-align: center; font-size: 16.5px; font-weight: 600; color: var(--ink); margin-bottom: 26px; }
+        .xhs-heading .en { display: block; font-family: var(--font-en); font-size: 11.5px; font-weight: 500; color: var(--ink-3); margin-top: 5px; }
         .xhs-links ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
         .xhs-links li { margin: 0; }
         .xhs-links a {
@@ -629,6 +924,11 @@ export default function Projects() {
           .more-wide .more-img { aspect-ratio: 16 / 10; }
           .lb-prev { left: 8px; }
           .lb-next { right: 8px; }
+          .project-pdfs { grid-template-columns: 1fr; }
+          .pdf-thumb { aspect-ratio: 3 / 4; }
+          .project-pdf-card .project-pdfs { height: auto; }
+          .project-pdf-card .pdf-thumb { aspect-ratio: 3 / 4; height: auto; min-height: 0; }
+          .pdf-lb-title i { display: none; }
         }
       `}</style>
     </section>

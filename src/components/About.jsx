@@ -1,22 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
-
-const stats = [
-  { value: 53, suffix: 'w+', label: '自媒体内容阅读总量', note: '小红书合计阅读', en: 'Total Reads' },
-  { value: 1.1, suffix: 'w', label: '获赞收藏', note: '小红书账号累计', en: 'Likes & Saves' },
-  { value: 52, suffix: 'w', label: '单篇笔记最高浏览', note: '小红书爆款内容', en: 'Best Single Post' },
-  { value: 11, suffix: '人', label: '跨职能团队管理', note: '创新创业项目负责人', en: 'Team Managed' },
-]
+import { createPortal } from 'react-dom'
 
 const edu = [
-  { school: '上海大学', tag: '211 · 双一流', major: '环境设计 · 全日制本科', time: '2024.09 — 2028.06', note: '2026 QS Asia #87', en: 'Shanghai University · Environmental Design' },
-  { school: '华东师范大学', tag: '985 · 211 · 双一流', major: '金融学 · 辅修', time: '2024.09 — 2028.06', note: '2026 QS Asia #100', en: 'ECNU · Finance Minor' },
+  {
+    school: '上海大学', tag: '211 · 双一流', note: '2026 QS Asia #87', en: 'Shanghai University',
+    majors: [
+      { major: '环境设计 · 全日制本科', time: '2024.09 — 2028.06', en: 'Environmental Design · Full-time Undergraduate', pdf: '/documents/shu-envdesign-plan.pdf', pdfTitle: '上海大学2024级环境设计教学计划', pdfEn: 'SHU Env. Design Program Plan' },
+      { major: '互动娱乐设计 · 微专业', time: '2026.09 — 2028.06', en: 'Interactive Entertainment Design · Micro-Major', pdf: '/documents/shu-interactive-entertainment-plan.pdf', pdfTitle: '上海大学2026级互动娱乐设计微专业培养方案', pdfEn: 'SHU Interactive Entertainment Micro-Major Plan' },
+    ],
+  },
+  {
+    school: '华东师范大学', tag: '985 · 211 · 双一流', note: '2026 QS Asia #100', en: 'ECNU · Finance Minor',
+    majors: [
+      { major: '金融学 · 辅修', time: '2024.09 — 2028.06', en: 'Finance Minor', pdf: '/documents/ecnu-finance-minor-plan.pdf', pdfTitle: '华东师范大学辅修金融学教学计划', pdfEn: 'ECNU Finance Minor Program Plan' },
+    ],
+  },
 ]
 
 const awards = [
-  '2024-2025 学年 "优秀个人" 荣誉称号',
-  '"AI 赋能非遗传承传播" 市三等奖',
-  '上海市团校 青马工程',
-  '自强杯 / 国创赛 · 省级重点立项',
+  { zh: '2024-2025 学年 "优秀个人" 荣誉称号', en: '"Outstanding Individual" Honor · 2024-2025 Academic Year' },
+  { zh: '"AI 赋能非遗传承传播" 市三等奖', en: 'Municipal Third Prize · AI Empowering Intangible Cultural Heritage' },
+  { zh: '上海市团校 青马工程', en: 'Shanghai Qingma (Young Marxist) Training Program' },
+  { zh: '自强杯 / 国创赛 · 省级重点立项', en: 'Ziqiang Cup / National Innovation Contest · Provincial Key Project' },
 ]
 
 // 三个社会经历（来自简历 PDF）
@@ -28,8 +33,8 @@ const experiences = [
     tag: '金融新媒体',
     en: 'Sinolink Securities Co., Ltd. · Media & Branding Intern',
     duties: [
-      '负责证券投资理财类短视频策划、拍摄、剪辑与全平台发布（抖音 / B站 / 小红书 / 视频号）',
-      '参与矩阵账号 IP 孵化与运营，制作直播背景、活动海报、演示 PPT 与数据可视化，助力获客转化',
+      { zh: '负责证券投资理财类短视频策划、拍摄、剪辑与全平台发布（抖音 / B站 / 小红书 / 视频号）', en: 'Planned, shot and edited short videos on securities and investment topics, publishing across Douyin / Bilibili / Xiaohongshu / Channels.' },
+      { zh: '参与矩阵账号 IP 孵化与运营，制作直播背景、活动海报、演示 PPT 与数据可视化，助力获客转化', en: 'Co-ran matrix account IP incubation, produced live-stream backdrops, posters, pitch decks and data visuals to drive customer acquisition.' },
     ],
   },
   {
@@ -39,8 +44,8 @@ const experiences = [
     tag: '空间设计',
     en: 'SHANGHAI SHANGDA ARCHITECTURAL DESIGNING INSTITUTE CO., LTD. · Design Intern',
     duties: [
-      '参与上海地铁 21 号线张衡路站、龙东大道站站厅室内装修与站名墙设计',
-      '以 AutoCAD / 3ds Max (V-Ray) 独立完成调研、设计、建模、渲染与施工图纸，并应用 AI 工具提效',
+      { zh: '参与上海地铁 21 号线张衡路站、龙东大道站站厅室内装修与站名墙设计', en: 'Worked on interior fit-out and station-name wall design for Zhangheng Rd and Longdong Ave stations on Shanghai Metro Line 21.' },
+      { zh: '以 AutoCAD / 3ds Max (V-Ray) 独立完成调研、设计、建模、渲染与施工图纸，并应用 AI 工具提效', en: 'Independently delivered research, design, modeling, rendering and construction drawings with AutoCAD / 3ds Max (V-Ray), boosting efficiency with AI tools.' },
     ],
   },
   {
@@ -50,71 +55,72 @@ const experiences = [
     tag: '家装设计',
     en: 'KingWoo Strategy & Design (KWSD) · Interior & Social Media Intern',
     duties: [
-      '参与室内方案创意构思与执行，使用 CAD 绘制图纸、SketchUp (Enscape) 制作效果图、输出 PPT 方案',
-      '运营小红书 / 微博账号：剪映剪辑视频、封面设计、脚本策划，有效提升品牌线上曝光',
+      { zh: '参与室内方案创意构思与执行，使用 CAD 绘制图纸、SketchUp (Enscape) 制作效果图、输出 PPT 方案', en: 'Contributed to interior concept development, drafting with CAD, rendering with SketchUp (Enscape) and delivering PPT proposals.' },
+      { zh: '运营小红书 / 微博账号：剪映剪辑视频、封面设计、脚本策划，有效提升品牌线上曝光', en: 'Managed Xiaohongshu / Weibo accounts — video editing with CapCut, cover design and scripting that raised brand visibility online.' },
     ],
   },
 ]
 
 // 校园经历（补充）
 const campus = [
-  { role: '学生会 · 部长', note: '组织统筹与跨部门协作，多次主导校园大型活动执行', en: 'Student Union · Department Head' },
-  { role: '自强杯 / 国创赛 · 项目负责人', note: '带领 11 人跨职能团队完成项目孵化与路演落地', en: 'Innovation Project Leader' },
+  { role: '学生会 · 部长', note: '组织统筹与跨部门协作，多次主导校园大型活动执行', noteEn: 'Cross-department coordination; led multiple campus events', en: 'Student Union · Department Head' },
+  { role: '自强杯 / 国创赛 · 项目负责人', note: '带领 11 人跨职能团队完成项目孵化与路演落地', noteEn: 'Led an 11-person cross-functional team from incubation to pitch', en: 'Innovation Project Leader' },
 ]
 
 export default function About() {
-  const ref = useRef(null)
-  const [started, setStarted] = useState(false)
+  const [viewer, setViewer] = useState(null)
+  const [viewerFull, setViewerFull] = useState(false)
+  const viewerStageRef = useRef(null)
 
-  useEffect(() => {
-    const el = ref.current
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true)
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.3 }
-    )
-    if (el) obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
+  const openViewer = (src, title, en) => setViewer({ src, title, en })
 
-  const Counter = ({ to, suffix }) => {
-    const [n, setN] = useState(0)
-    useEffect(() => {
-      if (!started) return
-      const duration = 1500
-      const t0 = performance.now()
-      let raf
-      const tick = (t) => {
-        const p = Math.min((t - t0) / duration, 1)
-        const eased = 1 - Math.pow(1 - p, 3)
-        setN(Number((to * eased).toFixed(1)))
-        if (p < 1) raf = requestAnimationFrame(tick)
-      }
-      raf = requestAnimationFrame(tick)
-      return () => cancelAnimationFrame(raf)
-    }, [started, to])
-    return (
-      <span className="stat-num">
-        {n}
-        <em>{suffix}</em>
-      </span>
-    )
+  const closeViewer = () => {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {})
+    setViewerFull(false)
+    setViewer(null)
   }
 
+  const toggleViewerFull = async () => {
+    const el = viewerStageRef.current
+    if (!el) return
+    try {
+      if (!document.fullscreenElement) {
+        await el.requestFullscreen?.()
+        setViewerFull(true)
+      } else {
+        await document.exitFullscreen()
+        setViewerFull(false)
+      }
+    } catch {
+      setViewerFull((f) => !f)
+    }
+  }
+
+  useEffect(() => {
+    if (!viewer) return
+    const onKey = (e) => { if (e.key === 'Escape') closeViewer() }
+    const onFsChange = () => { if (!document.fullscreenElement) setViewerFull(false) }
+    window.addEventListener('keydown', onKey)
+    document.addEventListener('fullscreenchange', onFsChange)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('fullscreenchange', onFsChange)
+      document.body.style.overflow = ''
+    }
+  }, [viewer])
+
   return (
+    <>
     <section id="about" className="about">
       <div className="grid-bg" />
       <div className="container">
         <div className="sec-tag reveal">01 · About Me</div>
         <h2 className="sec-title reveal">
-          设计 × 金融 × 新媒体
+          设计 × 金融
           <br />
           <span className="grad">跨学科创造者</span>
-          <span className="en">Design × Finance × New Media — an interdisciplinary creator</span>
+          <span className="en">Design × Finance — an interdisciplinary creator</span>
         </h2>
 
         <div className="about-grid">
@@ -154,7 +160,7 @@ export default function About() {
                 </a>
                 <div className="contact-item">
                   <span className="ci-icon">◉</span>
-                  <span><em>常驻 / Base</em>上海市 · 接受全国差旅</span>
+                  <span><em>常驻 / Base</em>上海市 · 接受全国差旅 · Shanghai · Nationwide OK</span>
                 </div>
               </div>
             </div>
@@ -168,6 +174,7 @@ export default function About() {
                 熟悉<b>空间设计</b>、<b>新媒体运营</b>与<b>内容策略</b>，可独立完成从方案策划到传播复盘的闭环管理；
                 擅长商务对接与跨部门协同，中英文沟通良好。
               </p>
+              <span className="en">A designer with a finance background — leading cross-functional teams through incubation and delivery, fluent in Chinese and English.</span>
               <p>
                 从地铁站厅的空间设计，到 AI 赋能的原创产品，再到单篇 52 万浏览的新媒体内容——
                 我相信设计是解决问题的方式，也是连接人与生活的语言。
@@ -184,6 +191,9 @@ export default function About() {
                     <div className="exp-head">
                       <b>{e.org}</b>
                       <span className="exp-tag">{e.tag}</span>
+                      {e.org.includes('国金证券') && (
+                        <button type="button" className="exp-rec" onClick={() => openViewer('/documents/recommendation-letter.pdf', '雇主推荐信', 'Employer Reference Letter')}>持有雇主推荐信 · Employer Reference Available</button>
+                      )}
                       <span className="exp-time">{e.time}</span>
                     </div>
                     <div className="exp-role">
@@ -192,7 +202,10 @@ export default function About() {
                     </div>
                     <ul className="exp-duties">
                       {e.duties.map((d) => (
-                        <li key={d}>{d}</li>
+                        <li key={d.zh}>
+                          <span className="duty-zh">{d.zh}</span>
+                          <span className="duty-en">{d.en}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -207,7 +220,7 @@ export default function About() {
                 {campus.map((c) => (
                   <div key={c.role} className="campus-item">
                     <b>{c.role}</b>
-                    <span>{c.note}</span>
+                    <span>{c.note}<em>{c.noteEn}</em></span>
                     <i>{c.en}</i>
                   </div>
                 ))}
@@ -222,12 +235,21 @@ export default function About() {
                     <div className="edu-head">
                       <b>{e.school}</b>
                       <span className="edu-tag">{e.tag}</span>
-                      <span className="edu-time">{e.time}</span>
+                      <span className="edu-note">{e.note}</span>
+                      <span className="edu-en">{e.en}</span>
                     </div>
-                    <div className="edu-major">
-                      {e.major}
-                      <i>{e.en}</i>
-                    </div>
+                    {e.majors.map((m) => (
+                      <div key={m.major} className="edu-major-row">
+                        <div className="edu-major">
+                          {m.major}
+                          <i>{m.en}</i>
+                          <span className="edu-time">{m.time}</span>
+                        </div>
+                        <button type="button" className="edu-plan-btn" onClick={() => openViewer(m.pdf, m.pdfTitle, m.pdfEn)}>
+                          专业介绍 · Program Info
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
@@ -237,23 +259,13 @@ export default function About() {
               <h4>荣誉奖项 Awards</h4>
               <div className="award-list">
                 {awards.map((a) => (
-                  <span key={a} className="award-chip">✦ {a}</span>
+                  <span key={a.zh} className="award-chip">✦ {a.zh}<em>{a.en}</em></span>
                 ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* 数据统计 */}
-        <div className="stats reveal" ref={ref}>
-          {stats.map((s) => (
-            <div key={s.label} className="stat-item">
-              <Counter to={s.value} suffix={s.suffix} />
-              <b>{s.label}</b>
-              <span>{s.note} · {s.en}</span>
-            </div>
-          ))}
-        </div>
       </div>
 
       <style>{`
@@ -347,6 +359,24 @@ export default function About() {
           border: 1px solid var(--line-strong);
           padding: 3px 10px; border-radius: 999px;
         }
+        .exp-rec {
+          font-size: 11px; font-weight: 700;
+          color: #fff; background: var(--grad-main);
+          border: 1px solid var(--line-strong);
+          padding: 6px 12px; border-radius: 999px;
+          box-shadow: 0 6px 18px rgba(255, 90, 31, 0.30);
+          cursor: pointer;
+          font-family: inherit;
+          line-height: 1.5;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+        }
+        .exp-rec:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 26px rgba(255, 90, 31, 0.42);
+          filter: brightness(1.06);
+        }
+        .exp-rec:active { transform: translateY(0); }
+        .exp-rec:focus-visible { outline: 2px solid var(--orange-red); outline-offset: 2px; }
         .exp-time { margin-left: auto; font-family: var(--font-en); font-size: 13px; color: var(--ink-2); }
         .exp-role { margin-top: 6px; font-size: 14.5px; color: var(--ink); font-weight: 600; }
         .exp-role i { font-style: normal; margin-left: 12px; font-family: var(--font-en); font-size: 11.5px; font-weight: 600; color: var(--ink-3); letter-spacing: 0.04em; }
@@ -360,6 +390,12 @@ export default function About() {
           width: 7px; height: 7px; border-radius: 50%;
           background: var(--grad-main);
         }
+        .duty-zh { display: block; }
+        .duty-en {
+          display: block;
+          font-family: var(--font-en); font-size: 11px; line-height: 1.7;
+          color: var(--ink-3); margin-top: 2px; letter-spacing: 0.01em;
+        }
 
         .campus-list { display: flex; flex-direction: column; gap: 10px; }
         .campus-item {
@@ -372,6 +408,7 @@ export default function About() {
         .campus-item b { font-size: 15px; margin-right: 14px; }
         .campus-item span { font-size: 13.5px; color: var(--ink-2); }
         .campus-item i { display: block; font-style: normal; font-family: var(--font-en); font-size: 11px; color: var(--ink-3); margin-top: 4px; }
+        .campus-item span em { display: block; font-style: normal; font-family: var(--font-en); font-size: 11px; color: var(--ink-3); margin-top: 2px; }
 
         .edu-list { display: flex; flex-direction: column; gap: 14px; }
         .edu-item {
@@ -390,9 +427,36 @@ export default function About() {
           border: 1px solid var(--line-strong);
           padding: 3px 10px; border-radius: 999px;
         }
-        .edu-time { margin-left: auto; font-family: var(--font-en); font-size: 13px; color: var(--ink-2); }
-        .edu-major { margin-top: 6px; font-size: 14px; color: var(--ink-2); }
-        .edu-major i { font-style: normal; margin-left: 12px; font-family: var(--font-en); font-size: 11.5px; color: var(--orange-red); }
+        .edu-note { font-family: var(--font-en); font-size: 11.5px; color: var(--ink-3); }
+        .edu-en { font-family: var(--font-en); font-size: 11.5px; color: var(--ink-3); }
+        .edu-major-row {
+          margin-top: 10px;
+          display: flex; align-items: center; justify-content: space-between; gap: 14px;
+          flex-wrap: wrap;
+        }
+        .edu-major-row:first-child { margin-top: 14px; }
+        .edu-major {
+          font-size: 19px; font-weight: 700; color: var(--ink);
+          letter-spacing: 0.02em; line-height: 1.35;
+        }
+        .edu-major i { font-style: normal; margin-left: 12px; font-family: var(--font-en); font-size: 13px; font-weight: 600; color: var(--orange-red); letter-spacing: 0.04em; }
+        .edu-time { font-family: var(--font-en); font-size: 13px; color: var(--ink-2); }
+        .edu-plan-btn {
+          font-size: 11px; font-weight: 700;
+          color: #fff; background: var(--grad-main);
+          border: 1px solid var(--line-strong);
+          padding: 6px 12px; border-radius: 999px;
+          box-shadow: 0 6px 18px rgba(255, 90, 31, 0.30);
+          cursor: pointer; font-family: inherit; line-height: 1.5;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+        }
+        .edu-plan-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 26px rgba(255, 90, 31, 0.42);
+          filter: brightness(1.06);
+        }
+        .edu-plan-btn:active { transform: translateY(0); }
+        .edu-plan-btn:focus-visible { outline: 2px solid var(--orange-red); outline-offset: 2px; }
         .award-list { display: flex; flex-wrap: wrap; gap: 10px; }
         .award-chip {
           padding: 10px 18px; border-radius: 999px;
@@ -401,50 +465,15 @@ export default function About() {
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
         }
-
-        .stats {
-          margin-top: 96px;
-          display: grid; grid-template-columns: repeat(2, 1fr);
-          gap: 24px;
-          align-items: stretch;
+        .award-chip em {
+          display: block; font-style: normal;
+          font-family: var(--font-en); font-size: 10.5px;
+          color: var(--ink-2); margin-top: 3px; letter-spacing: 0.02em;
         }
-        .stat-item {
-          padding: 42px 44px 38px; border-radius: var(--radius);
-          border: 1px solid var(--line);
-          background: linear-gradient(160deg, rgba(255,196,0,0.26), rgba(255,107,44,0.14));
-          backdrop-filter: blur(22px) saturate(180%);
-          -webkit-backdrop-filter: blur(22px) saturate(180%);
-          position: relative; overflow: hidden;
-          display: flex; flex-direction: column; justify-content: center;
-        }
-        .stat-item::after {
-          content: ''; position: absolute; inset: 0;
-          background: linear-gradient(135deg, rgba(255,255,255,0.22), transparent 45%);
-          pointer-events: none;
-        }
-        .stat-item .stat-num {
-          display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px;
-          font-family: var(--font-display);
-          font-size: clamp(130px, 10vw, 200px);
-          line-height: 0.9; color: var(--ink);
-          margin-bottom: 20px;
-          white-space: normal; word-break: break-all;
-          letter-spacing: 0.01em;
-          width: 100%;
-          position: relative; z-index: 1;
-        }
-        .stat-item .stat-num em {
-          font-style: normal; font-size: 0.1667em; line-height: 1;
-          color: var(--orange-red); font-family: var(--font-en);
-          font-weight: 700; letter-spacing: 0.04em;
-        }
-        .stat-item b { display: block; font-size: 16px; margin-bottom: 8px; position: relative; z-index: 1; }
-        .stat-item span { font-size: 13px; color: var(--ink-3); position: relative; z-index: 1; }
 
         @media (max-width: 1100px) {
           .about-grid { grid-template-columns: 1fr; }
           .about-card { position: static; }
-          .stats { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -452,5 +481,40 @@ export default function About() {
         }
       `}</style>
     </section>
+
+    {createPortal(
+      viewer && (
+        <div className="pdf-modal" onClick={closeViewer}>
+          <div className={`pdf-stage${viewerFull ? ' pdf-stage-full' : ''}`} ref={viewerStageRef} onClick={(e) => e.stopPropagation()}>
+            <div className="pdf-toolbar">
+              <div className="pdf-toolbar-title">
+                <span className="pt-icon">▤</span>
+                <b>{viewer.title}</b>
+                <i>{viewer.en}</i>
+              </div>
+              <div className="pdf-toolbar-actions">
+                <a className="pt-btn" href={viewer.src} target="_blank" rel="noreferrer" title="Open in new tab">
+                  <span>New Tab</span>
+                </a>
+                <button type="button" className="pt-btn" onClick={toggleViewerFull} title="Toggle fullscreen">
+                  <span>{viewerFull ? 'Exit Fullscreen' : 'Fullscreen'}</span>
+                </button>
+                <button type="button" className="pt-btn pt-close" onClick={closeViewer} title="Close">
+                  <span>✕ Close</span>
+                </button>
+              </div>
+            </div>
+            <div className="pdf-frame">
+              <iframe key={viewer.src} src={viewer.src} title={viewer.title} frameBorder="0" />
+            </div>
+            <div className="pdf-hint">
+              <span>ESC to close · Fullscreen / New Tab · Inline preview</span>
+            </div>
+          </div>
+        </div>
+      ),
+      document.body
+    )}
+    </>
   )
 }

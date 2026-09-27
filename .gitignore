@@ -2,7 +2,7 @@
 node_modules/
 
 # Build output (keep dist if deploying via GitHub Pages, uncomment to ignore)
-# dist/
+dist/
 
 # Logs
 *.log

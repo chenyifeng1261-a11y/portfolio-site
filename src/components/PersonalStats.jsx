@@ -122,6 +122,15 @@ export default function PersonalStats() {
         .stat-item span { font-size: 13px; color: var(--ink-3); position: relative; z-index: 1; }
 
         @media (max-width: 1100px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+        @media (max-width: 760px) {
+          .stats-section { padding: 96px 0; }
+          .stats { grid-template-columns: 1fr; gap: 16px; margin-top: 52px; }
+          .stat-item { padding: 30px 26px 26px; }
+          .stat-item .stat-num { font-size: clamp(72px, 18vw, 120px); margin-bottom: 16px; }
+          .stat-item b { font-size: 15px; }
+          .stat-item span { font-size: 12.5px; }
+        }
       `}</style>
     </section>
   )

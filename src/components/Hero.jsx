@@ -160,6 +160,29 @@ export default function Hero() {
           .hero-blob, .hero-scan { animation: none; }
           .hero-pulse, .hero-mouse div { animation: none; }
         }
+
+        @media (max-width: 760px) {
+          .hero { min-height: 100svh; }
+          .hero-inner { padding-top: 104px; padding-bottom: 104px; }
+          .hero-topline { font-size: 10.5px; letter-spacing: 0.16em; padding: 8px 14px; gap: 8px; }
+          .hero-title { margin-bottom: 22px; }
+          .hero-cn { font-size: clamp(88px, 24vw, 160px); }
+          .hero-en { font-size: clamp(30px, 8vw, 52px); margin-top: 6px; }
+          .hero-roles { gap: 8px 8px; margin-bottom: 22px; }
+          .hero-role { font-size: 13px; padding: 8px 14px; gap: 7px; }
+          .hero-role em { font-size: 10px; }
+          .hero-desc { font-size: 15px; line-height: 1.85; margin-bottom: 32px; }
+          .hero-actions { flex-direction: column; align-items: stretch; gap: 12px; }
+          .hero-actions .btn { width: 100%; }
+          .hero-meta { bottom: 24px; }
+        }
+
+        @media (max-width: 400px) {
+          .hero-cn { font-size: clamp(70px, 21vw, 96px); }
+          .hero-en { font-size: clamp(25px, 7.5vw, 34px); }
+          .hero-topline { font-size: 9.5px; letter-spacing: 0.12em; }
+          .hero-role { font-size: 12px; padding: 7px 12px; }
+        }
       `}</style>
     </section>
   )

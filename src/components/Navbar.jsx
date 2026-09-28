@@ -156,7 +156,7 @@ export default function Navbar() {
           background: rgba(255, 253, 249, 0.92);
           backdrop-filter: blur(24px) saturate(160%);
           -webkit-backdrop-filter: blur(24px) saturate(160%);
-          display: flex; align-items: center; justify-content: center;
+          display: flex;
           animation: navOverlayFade 0.3s ease;
           overflow-y: auto;
         }
@@ -164,6 +164,8 @@ export default function Navbar() {
         .nav-overlay-inner {
           width: 100%; max-width: 420px; padding: 0 28px;
           display: flex; flex-direction: column; gap: 28px;
+          /* flex 子项 margin:auto 实现居中，且内容超高时可从顶部完整滚动（修复矮屏裁切） */
+          margin: auto;
         }
         .nav-overlay-head { display: flex; align-items: center; justify-content: space-between; }
         .nav-overlay-logo {

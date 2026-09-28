@@ -11,10 +11,11 @@ const projects = [
     year: '2024-2026',
     title: '校企联合项目-金茂北外滩商业空间设计',
     subtitle: '活力引擎·多巴胺商业空间 · Vitality Engine · Dopamine Space',
-    desc: '与校企联合完成的上海金茂北外滩商业空间设计，以「活力引擎」与多巴胺色彩构建年轻化商业场景，涵盖概念推演、方案图纸与效果图，共 14 页完整记录。',
-    en: 'University-Enterprise Project — Jinmao North Bund commercial space design, a dopamine-inspired vitality hub, 14 pages.',
-    cover: '/images/portfolio-overview-01.webp',
+    desc: '与校企联合完成的上海金茂北外滩商业空间设计，以「活力引擎」与多巴胺色彩构建年轻化商业场景，涵盖概念推演、方案图纸与效果图，含总览展板共 15 页完整记录。',
+    en: 'University-Enterprise Project — Jinmao North Bund commercial space design, a dopamine-inspired vitality hub, 15 pages in total.',
+    cover: '/images/portfolio-overview-00.webp',
     images: [
+      '/images/portfolio-overview-00.webp',
       '/images/portfolio-overview-01.webp',
       '/images/portfolio-overview-02.webp',
       '/images/portfolio-overview-03.webp',
@@ -39,6 +40,26 @@ const projects = [
   },
   {
     id: '02',
+    tag: '空间设计 · 校园改造',
+    en_tag: 'Spatial Design · Campus Renovation',
+    year: '2025',
+    title: '室内设计原理B大作业 · 上海电影学院室内空间设计',
+    subtitle: 'Interior Space Design of Shanghai Film Academy',
+    desc: '室内设计原理B大作业：针对上海大学上海电影学院室内空间，从空间叙事背景、使用需求分析到建筑细部改造层层推进，覆盖剧场、盥洗室等功能空间的更新研究。全案分《三展板合集》与《设计任务书+调研》两册。',
+    en: 'A coursework dossier for Interior Design Principles B — spatial narrative, usage demand and renovation analysis of Shanghai Film Academy, in two parts: design boards and brief & research.',
+    pdfs: [
+      { label: '三展板合集', en: 'Design Boards', src: '/documents/interior-design-b-boards.pdf', cover: '/images/pdf-interior-b-boards-cover.jpg', pageRatio: 595 / 842 },
+      { label: '设计任务书+调研', en: 'Brief & Research', src: '/documents/interior-design-b-brief.pdf', cover: '/images/pdf-interior-b-brief-cover.jpg', pageRatio: 595 / 842 },
+    ],
+    alt: '室内设计原理B大作业-上海电影学院室内空间设计',
+    points: [
+      { zh: '空间叙事', en: 'Spatial Narrative' },
+      { zh: '需求分析', en: 'Demand Analysis' },
+      { zh: '改造研究', en: 'Renovation Study' },
+    ],
+  },
+  {
+    id: '03',
     tag: '空间设计 · 城市更新',
     en_tag: 'Spatial Design · Urban Renewal',
     year: '2025',
@@ -64,7 +85,7 @@ const projects = [
     ],
   },
   {
-    id: '03',
+    id: '04',
     tag: '产品设计 · AI 辅助',
     en_tag: 'Product Design · AI-assisted',
     year: '2026',
@@ -89,7 +110,7 @@ const projects = [
     ],
   },
   {
-    id: '04',
+    id: '05',
     tag: '工业设计 · AI 赋能',
     en_tag: 'Industrial Design · AI-empowered',
     year: '2025',
@@ -113,7 +134,7 @@ const projects = [
     ],
   },
   {
-    id: '05',
+    id: '06',
     tag: '设计调研 · 用户研究',
     en_tag: 'Design Research · User Study',
     year: '2026',
@@ -253,8 +274,8 @@ export default function Projects() {
           <span className="en">Selected Projects · click a card to open full case gallery</span>
         </h2>
         <p className="sec-sub reveal">
-          从空间到产品，从线下到线上 —— 五组代表作品，展示我在空间设计、AI 赋能产品与设计调研中的完整实践链路。
-          <span className="en">From space to product, offline to online — five selected works spanning spatial design, AI-empowered products and design research.</span>
+          从空间到产品，从线下到线上 —— 六组代表作品，展示我在空间设计、AI 赋能产品与设计调研中的完整实践链路。
+          <span className="en">From space to product, offline to online — six selected works spanning spatial design, AI-empowered products and design research.</span>
           <b className="sec-hint">点击卡片查看全部大图 <i>Click a card to view gallery</i></b>
         </p>
 
@@ -653,7 +674,7 @@ export default function Projects() {
         .project-cta:hover { gap: 22px; color: var(--orange-red); }
         .project-arrow { font-size: 20px; }
 
-        /* 第 5 项目：双 PDF 并列灯箱入口 */
+        /* PDF 项目：双 PDF 并列灯箱入口 */
         .project-pdf-card { align-items: stretch; }
         .project-pdf-card .project-title {
           font-size: clamp(30px, 3vw, 44px);

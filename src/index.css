@@ -30,6 +30,9 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* 注意：overflow-x 必须放在 html 且使用 clip，
+   放在 body 上会破坏 iOS Safari 的 position:fixed（导航栏滚出视口） */
+html, body { overflow-x: clip; }
 body {
   background: var(--cream);
   background-image:
@@ -39,7 +42,6 @@ body {
   color: var(--ink);
   font-family: var(--font-cn);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 ::selection { background: var(--orange-red); color: #fff; }
 ::-webkit-scrollbar { width: 10px; }

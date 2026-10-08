@@ -7,7 +7,8 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = `${import.meta.env.BASE_URL}pdf.worker.
 // 基于 PDF.js 的 PDF 预览渲染器：解决 Chrome 内置 PDF viewer(PDFium)
 // 对部分 PDF（字体/结构特性不兼容）白屏的问题。
 // 支持：按容器宽度自适应、页码翻页、缩放、错误兜底提示。
-// 加载动效：首次加载显示磨砂玻璃进度动效；翻页采用离屏渲染 + 淡入，全程无文字遮罩、无闪烁。
+// 加载动效：首次加载显示磨砂玻璃旋转环+光圈波纹+进度动效；
+// 翻页采用离屏渲染 + 淡入，翻页期间页面中央显示暖橙胶囊加载指示，全程无文字遮罩、无闪烁。
 export default function PdfViewer({ src, title = '', onPageChange }) {
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
@@ -131,7 +132,12 @@ export default function PdfViewer({ src, title = '', onPageChange }) {
   return (
     <div className="pv-root">
       <div className="pv-canvas-wrap" ref={wrapRef}>
-        {status === 'rendering' && <span className="pv-pulse" />}
+        {status === 'rendering' && (
+          <div className="pv-turn" aria-hidden="true">
+            <span className="pv-turn-ring" />
+            <span className="pv-turn-bar"><i /></span>
+          </div>
+        )}
         <canvas ref={canvasRef} className={fadeIn ? 'pv-canvas-show' : ''} />
         {status === 'loading' && (
           <div className="pv-splash">
@@ -193,7 +199,7 @@ export default function PdfViewer({ src, title = '', onPageChange }) {
         .pv-canvas-wrap canvas.pv-canvas-show {
           opacity: 1;
         }
-        /* 首次加载：磨砂玻璃进度动效（无文字） */
+        /* 首次加载：磨砂玻璃进度动效（无文字，渐入 + 光圈波纹） */
         .pv-splash {
           position: absolute; inset: 0;
           display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
@@ -202,14 +208,21 @@ export default function PdfViewer({ src, title = '', onPageChange }) {
             linear-gradient(160deg, rgba(255, 255, 255, 0.62), rgba(255, 224, 178, 0.42));
           backdrop-filter: blur(16px) saturate(150%);
           -webkit-backdrop-filter: blur(16px) saturate(150%);
+          animation: pvSplashIn 0.4s ease;
         }
         .pv-splash-ring {
+          position: relative;
           width: 54px; height: 54px; border-radius: 50%;
           border: 3px solid rgba(255, 122, 0, 0.18);
           border-top-color: var(--orange-red);
           border-right-color: var(--gold);
           animation: pvSpin 1s linear infinite;
           box-shadow: 0 0 24px rgba(255, 122, 0, 0.30);
+        }
+        .pv-splash-ring::after {
+          content: ''; position: absolute; inset: -12px; border-radius: 50%;
+          border: 2px solid rgba(255, 122, 0, 0.28);
+          animation: pvHalo 1.4s ease-out infinite;
         }
         .pv-splash-bar {
           width: 180px; height: 4px; border-radius: 999px;
@@ -226,18 +239,47 @@ export default function PdfViewer({ src, title = '', onPageChange }) {
         }
         @keyframes pvBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
         @keyframes pvSpin { to { transform: rotate(360deg); } }
-        /* 翻页轻量脉冲指示（不遮罩页面） */
-        .pv-pulse {
-          position: absolute; top: 12px; right: 12px;
-          width: 10px; height: 10px; border-radius: 50%;
-          background: var(--orange-red);
-          box-shadow: 0 0 0 rgba(255, 122, 0, 0.5);
-          animation: pvPulse 1.1s ease-out infinite;
-          pointer-events: none;
+        @keyframes pvSplashIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pvHalo {
+          0% { transform: scale(0.7); opacity: 1; }
+          100% { transform: scale(1.3); opacity: 0; }
         }
-        @keyframes pvPulse {
-          0% { box-shadow: 0 0 0 0 rgba(255, 122, 0, 0.55); }
-          100% { box-shadow: 0 0 0 12px rgba(255, 122, 0, 0); }
+        /* 翻页加载指示（页面中央胶囊，半透明不遮正文阅读） */
+        .pv-turn {
+          position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+          display: flex; flex-direction: column; align-items: center; gap: 8px;
+          padding: 15px 21px;
+          border-radius: 16px;
+          background: rgba(255, 244, 228, 0.9);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid var(--line-strong);
+          box-shadow: 0 12px 40px rgba(255, 107, 44, 0.22);
+          pointer-events: none;
+          z-index: 2;
+          animation: pvTurnIn 0.25s ease;
+        }
+        .pv-turn-ring {
+          width: 30px; height: 30px; border-radius: 50%;
+          border: 3px solid rgba(255, 122, 0, 0.18);
+          border-top-color: var(--orange-red);
+          border-right-color: var(--gold);
+          animation: pvSpin 0.9s linear infinite;
+        }
+        .pv-turn-bar {
+          width: 96px; height: 3px; border-radius: 999px;
+          background: rgba(255, 122, 0, 0.16);
+          overflow: hidden; position: relative;
+        }
+        .pv-turn-bar i {
+          position: absolute; inset: 0; border-radius: 999px;
+          background: linear-gradient(90deg, var(--orange-red), var(--gold), var(--orange-red));
+          background-size: 200% 100%;
+          animation: pvBar 1.2s linear infinite;
+        }
+        @keyframes pvTurnIn {
+          from { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
+          to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
         /* 错误兜底 */
         .pv-error {
@@ -276,6 +318,9 @@ export default function PdfViewer({ src, title = '', onPageChange }) {
           .pv-btn-fit { display: none; }
           .pv-splash-ring { width: 44px; height: 44px; }
           .pv-splash-bar { width: 140px; }
+          .pv-turn { padding: 12px 16px; }
+          .pv-turn-ring { width: 24px; height: 24px; }
+          .pv-turn-bar { width: 72px; }
         }
       `}</style>
     </div>

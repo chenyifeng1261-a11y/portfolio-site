@@ -231,18 +231,27 @@ const socialQr = [
   { name: '视频号', en: 'Channels', src: '/images/qr-shipinhao.webp' },
 ]
 
-// 章节进度条（章节名指示器）：分段按页数占比展示，名称默认隐藏，点击分段后展现章节名
+// 章节进度条（章节名指示器）：分段按页数占比展示；默认高亮当前页所属章节名，
+// 点击其他分段可预览该章节名（再次点击当前分段或标签返回当前章节）
 function ChapterBar({ chapters, currentPage }) {
   const [activeIdx, setActiveIdx] = useState(null)
   if (!chapters || !chapters.length) return null
   const total = chapters.reduce((s, c) => s + (c.end - c.start + 1), 0)
   const curIdx = chapters.findIndex((c) => currentPage >= c.start && currentPage <= c.end)
-  const active = activeIdx != null ? chapters[activeIdx] : null
+  const isPeeking = activeIdx != null && activeIdx !== curIdx
+  const shown = isPeeking ? chapters[activeIdx] : curIdx >= 0 ? chapters[curIdx] : null
   return (
     <div className="chapter-wrap">
-      {active ? (
-        <button type="button" className="chapter-tag chapter-tag-on" onClick={() => setActiveIdx(null)}>
-          {active.name} · {active.start === active.end ? active.start : `${active.start}-${active.end}`} 页
+      {shown ? (
+        <button
+          type="button"
+          className={`chapter-tag chapter-tag-on${isPeeking ? ' chapter-tag-preview' : ' chapter-tag-cur'}`}
+          onClick={() => setActiveIdx(null)}
+          title={isPeeking ? '返回当前页章节' : '收起章节名'}
+        >
+          <span className="chapter-tag-icon">{isPeeking ? '↩' : '◉'}</span>
+          {shown.name} · {shown.start === shown.end ? shown.start : `${shown.start}-${shown.end}`} 页
+          <span className="chapter-tag-hint">{isPeeking ? '当前章节' : '收起'}</span>
         </button>
       ) : (
         <span className="chapter-tag">点击分段查看章节 · Tap segment to reveal chapter</span>
@@ -949,6 +958,24 @@ export default function Projects() {
           border-color: transparent;
           box-shadow: 0 6px 18px rgba(255, 90, 31, 0.32);
           cursor: pointer;
+        }
+        .chapter-tag-cur { animation: chapterTagIn 0.4s ease; }
+        .chapter-tag-preview {
+          background: rgba(255, 255, 255, 0.96);
+          color: var(--orange-red);
+          border: 1px dashed var(--orange-red);
+          box-shadow: 0 4px 14px rgba(255, 90, 31, 0.20);
+        }
+        .chapter-tag-icon { margin-right: 2px; font-size: 10px; opacity: 0.95; }
+        .chapter-tag-hint {
+          margin-left: 8px; padding-left: 8px;
+          font-size: 10px; letter-spacing: 0.06em; opacity: 0.85;
+          border-left: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .chapter-tag-preview .chapter-tag-hint { border-left-color: rgba(255, 90, 31, 0.35); }
+        @keyframes chapterTagIn {
+          from { opacity: 0; transform: translateY(-4px); }
+          to { opacity: 1; transform: translateY(0); }
         }
         .chapter-bar { width: 100%; display: flex; gap: 3px; align-items: stretch; }
         .chapter-seg {

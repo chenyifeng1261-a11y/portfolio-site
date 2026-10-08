@@ -4,14 +4,14 @@ import PdfViewer from './PdfViewer'
 
 const edu = [
   {
-    school: '上海大学', tag: '211 · 双一流', note: '2026 QS Asia #87', en: 'Shanghai University',
+    school: '上海大学', badge: '/images/edu-shu.png', tag: '211 · 双一流', note: '2026 QS Asia #87', en: 'Shanghai University',
     majors: [
       { major: '环境设计 · 全日制本科', time: '2024.09 — 2028.06', en: 'Environmental Design · Full-time Undergraduate', pdf: '/documents/shu-envdesign-plan.pdf', pdfTitle: '上海大学2024级环境设计教学计划', pdfEn: 'SHU Env. Design Program Plan' },
       { major: '互动娱乐设计 · 微专业', time: '2026.09 — 2028.06', en: 'Interactive Entertainment Design · Micro-Major', pdf: '/documents/shu-interactive-entertainment-plan.pdf', pdfTitle: '上海大学2026级互动娱乐设计微专业培养方案', pdfEn: 'SHU Interactive Entertainment Micro-Major Plan' },
     ],
   },
   {
-    school: '华东师范大学', tag: '985 · 211 · 双一流', note: '2026 QS Asia #100', en: 'ECNU · Finance Minor',
+    school: '华东师范大学', badge: '/images/edu-ecnu.png', tag: '985 · 211 · 双一流', note: '2026 QS Asia #100', en: 'ECNU · Finance Minor',
     majors: [
       { major: '金融学 · 辅修', time: '2024.09 — 2028.06', en: 'Finance Minor', pdf: '/documents/ecnu-finance-minor-plan.pdf', pdfTitle: '华东师范大学辅修金融学教学计划', pdfEn: 'ECNU Finance Minor Program Plan' },
     ],
@@ -118,10 +118,10 @@ export default function About() {
       <div className="container">
         <div className="sec-tag reveal">01 · About Me</div>
         <h2 className="sec-title reveal">
-          设计 × 金融
+          设计&金融
           <br />
-          <span className="grad">跨学科创造者</span>
-          <span className="en">Design × Finance — an interdisciplinary creator</span>
+          <span className="grad">专业交叉背景</span>
+          <span className="en">Design &amp; Finance — an interdisciplinary background</span>
         </h2>
 
         <div className="about-grid">
@@ -139,7 +139,7 @@ export default function About() {
                   <circle cx="100" cy="100" r="92" stroke="url(#ringGrad)" strokeWidth="3" strokeDasharray="10 8" />
                 </svg>
                 <div className="avatar">
-                  <img src="/images/avatar.jpg" alt="陈一峰证件照" loading="lazy" />
+                  <img src="/images/avatar.png" alt="陈一峰证件照" loading="lazy" />
                 </div>
                 <span className="avatar-badge">OPEN TO WORK</span>
               </div>
@@ -234,6 +234,7 @@ export default function About() {
                 {edu.map((e) => (
                   <div key={e.school} className="edu-item">
                     <div className="edu-head">
+                      {e.badge && <img className="edu-badge" src={e.badge} alt={e.school} />}
                       <b>{e.school}</b>
                       <span className="edu-tag">{e.tag}</span>
                       <span className="edu-note">{e.note}</span>
@@ -420,7 +421,13 @@ export default function About() {
           border: 1px solid var(--line);
         }
         .edu-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-        .edu-head b { font-size: 18px; }
+        .edu-badge {
+          width: 36px; height: 36px; flex: none;
+          border-radius: 50%; object-fit: cover;
+          background: #fff;
+          box-shadow: 0 4px 14px rgba(255, 107, 44, 0.28);
+        }
+        .edu-head b { font-size: 22px; }
         .edu-tag {
           font-size: 11px; font-weight: 700;
           color: var(--orange-red);
@@ -437,7 +444,7 @@ export default function About() {
         }
         .edu-major-row:first-child { margin-top: 14px; }
         .edu-major {
-          font-size: 19px; font-weight: 700; color: var(--ink);
+          font-size: 18px; font-weight: 700; color: var(--ink);
           letter-spacing: 0.02em; line-height: 1.35;
         }
         .edu-major i { font-style: normal; margin-left: 12px; font-family: var(--font-en); font-size: 13px; font-weight: 600; color: var(--orange-red); letter-spacing: 0.04em; }

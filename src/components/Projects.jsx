@@ -9,11 +9,19 @@ const projects = [
     tag: '空间设计 · 商业空间',
     en_tag: 'Spatial Design · Commercial',
     year: '2024-2026',
-    title: '校企联合项目-金茂北外滩商业空间设计',
+    title: '金茂北外滩商业空间设计',
     subtitle: '活力引擎·多巴胺商业空间 · Vitality Engine · Dopamine Space',
     desc: '与校企联合完成的上海金茂北外滩商业空间设计，以「活力引擎」与多巴胺色彩构建年轻化商业场景，涵盖概念推演、方案图纸与效果图，含总览展板共 15 页完整记录。',
-    en: 'University-Enterprise Project — Jinmao North Bund commercial space design, a dopamine-inspired vitality hub, 15 pages in total.',
+    en: 'Jinmao North Bund Commercial Space Design — a dopamine-inspired vitality hub, 15 pages in total.',
     cover: '/images/portfolio-overview-00.webp',
+    compactTitle: true,
+    chapters: [
+      { name: '最终成果', start: 1, end: 1 },
+      { name: '调研，思路与策略', start: 2, end: 6 },
+      { name: '项目附属构筑：商亭方案', start: 7, end: 8 },
+      { name: '街区整体方案', start: 9, end: 13 },
+      { name: '项目重点区域：出入口7方案', start: 14, end: 15 },
+    ],
     images: [
       '/images/portfolio-overview-00.webp',
       '/images/portfolio-overview-01.webp',
@@ -43,10 +51,11 @@ const projects = [
     tag: '空间设计 · 校园改造',
     en_tag: 'Spatial Design · Campus Renovation',
     year: '2025',
-    title: '室内设计原理B大作业 · 上海电影学院室内空间设计',
+    title: '上海电影学院室内空间设计',
     subtitle: 'Interior Space Design of Shanghai Film Academy',
     desc: '室内设计原理B大作业：针对上海大学上海电影学院室内空间，从空间叙事背景、使用需求分析到建筑细部改造层层推进，覆盖剧场、盥洗室等功能空间的更新研究。全案分《三展板合集》与《设计任务书+调研》两册。',
     en: 'A coursework dossier for Interior Design Principles B — spatial narrative, usage demand and renovation analysis of Shanghai Film Academy, in two parts: design boards and brief & research.',
+    compactTitle: true,
     pdfs: [
       { label: '三展板合集', en: 'Design Boards', src: '/documents/interior-design-b-boards.pdf', cover: '/images/pdf-interior-b-boards-cover.jpg', pageRatio: 595 / 842 },
       { label: '设计任务书+调研', en: 'Brief & Research', src: '/documents/interior-design-b-brief.pdf', cover: '/images/pdf-interior-b-brief-cover.jpg', pageRatio: 595 / 842 },
@@ -69,6 +78,10 @@ const projects = [
     en: 'Ginkgo Nest — a senior-friendly community center shaped by ginkgo fan curves, light corridors and shadow courtyards.',
     cover: '/images/project-ginkgo-1.webp',
     video: '/videos/ginkgo.mp4',
+    chapters: [
+      { name: '调研，思路与策略', start: 1, end: 5 },
+      { name: '最终成果', start: 6, end: 6 },
+    ],
     images: [
       '/images/project-ginkgo-1.webp',
       '/images/project-ginkgo-2.webp',
@@ -94,6 +107,10 @@ const projects = [
     desc: '以明式家具当代转译为核心的坐具设计。从约 5 版设计演变到「方圆相济」的悬浮式躺椅：铜色框架致敬明式铜饰、编织纹理呼应藤屉透气、圆盘底座承载「圆融承地方」的东方哲学。',
     en: 'Imaginista — a contemporary reinterpretation of Ming-style furniture, a floating lounge chair of square-circle balance.',
     cover: '/images/project-mingyue-1.webp',
+    chapters: [
+      { name: '调研，思路与策略', start: 1, end: 5 },
+      { name: '最终成果', start: 6, end: 6 },
+    ],
     images: [
       '/images/project-mingyue-1.webp',
       '/images/project-mingyue-2.webp',
@@ -119,6 +136,10 @@ const projects = [
     desc: '借竹节形态的可扭动主体融合香薰与灯光功能，构建「可触摸的竹林谧境」。每段竹节可自由转动以调整出雾方向与光影角度，半透明材质与暖黄灯光复刻谷雨时节「竹影伴柔光」的禅意。',
     en: 'Bamboo Mist — a bamboo-joint aroma & light device, a touchable misty bamboo grove for Guyu season.',
     cover: '/images/project-bamboo-1.webp',
+    chapters: [
+      { name: '调研，思路与策略', start: 1, end: 4 },
+      { name: '最终成果', start: 5, end: 5 },
+    ],
     images: [
       '/images/project-bamboo-1.webp',
       '/images/project-bamboo-2.webp',
@@ -147,8 +168,18 @@ const projects = [
       { zh: '夏季学期院长作业', en: "Dean's Award · Summer Semester" },
     ],
     pdfs: [
-      { label: '调研任务书', en: 'Research Brief', src: '/documents/research-brief.pdf', cover: '/images/pdf-research-brief-cover.jpg', pageRatio: 612 / 792 },
-      { label: '设计调研', en: 'Design Research', src: '/documents/design-research.pdf', cover: '/images/pdf-design-research-cover.jpg', pageRatio: 1920 / 1080 },
+      { label: '调研任务书', en: 'Research Brief', src: '/documents/research-brief.pdf', cover: '/images/pdf-research-brief-cover.jpg', pageRatio: 612 / 792, chapters: [
+        { name: '研究背景与目标', start: 1, end: 7 },
+        { name: '文献与理论基础', start: 8, end: 16 },
+        { name: '方法与数据分析', start: 17, end: 26 },
+        { name: '结论与附录', start: 27, end: 32 },
+      ] },
+      { label: '设计调研', en: 'Design Research', src: '/documents/design-research.pdf', cover: '/images/pdf-design-research-cover.jpg', pageRatio: 1920 / 1080, chapters: [
+        { name: '研究概览', start: 1, end: 3 },
+        { name: '住房代际演变', start: 4, end: 8 },
+        { name: '问卷与访谈发现', start: 9, end: 13 },
+        { name: '需求画像与结论', start: 14, end: 20 },
+      ] },
     ],
     alt: '中国商品房室内设计需求的代际跃迁调研',
     points: [
@@ -200,13 +231,49 @@ const socialQr = [
   { name: '视频号', en: 'Channels', src: '/images/qr-shipinhao.webp' },
 ]
 
+// 章节进度条（章节名指示器）：分段按页数占比展示，名称默认隐藏，点击分段后展现章节名
+function ChapterBar({ chapters, currentPage }) {
+  const [activeIdx, setActiveIdx] = useState(null)
+  if (!chapters || !chapters.length) return null
+  const total = chapters.reduce((s, c) => s + (c.end - c.start + 1), 0)
+  const curIdx = chapters.findIndex((c) => currentPage >= c.start && currentPage <= c.end)
+  const active = activeIdx != null ? chapters[activeIdx] : null
+  return (
+    <div className="chapter-wrap">
+      {active ? (
+        <button type="button" className="chapter-tag chapter-tag-on" onClick={() => setActiveIdx(null)}>
+          {active.name} · {active.start === active.end ? active.start : `${active.start}-${active.end}`} 页
+        </button>
+      ) : (
+        <span className="chapter-tag">点击分段查看章节 · Tap segment to reveal chapter</span>
+      )}
+      <div className="chapter-bar">
+        {chapters.map((c, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`chapter-seg${i === curIdx ? ' chapter-seg-cur' : ''}${i === activeIdx ? ' chapter-seg-active' : ''}`}
+            style={{ width: `calc(${((c.end - c.start + 1) / total) * 100}% - 3px)` }}
+            onClick={() => setActiveIdx(i === activeIdx ? null : i)}
+            aria-label={c.name}
+            title={c.name}
+          >
+            <span className="chapter-seg-fill" />
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Projects() {
   const [lightbox, setLightbox] = useState(null)
   const [pdfLightbox, setPdfLightbox] = useState(null)
   const [imgLoaded, setImgLoaded] = useState(false)
+  const [pdfPage, setPdfPage] = useState(1)
 
-  const openLightbox = (images, index, title) => {
-    setLightbox({ images, index: index || 0, title })
+  const openLightbox = (images, index, title, chapters) => {
+    setLightbox({ images, index: index || 0, title, chapters })
     setImgLoaded(false)
     // 打开灯箱即预加载全部大图，避免切换时慢加载显示占位小图
     images.forEach((src) => {
@@ -215,7 +282,10 @@ export default function Projects() {
     })
   }
   const closeLightbox = () => setLightbox(null)
-  const openPdfLightbox = (pdf, projectTitle) => setPdfLightbox({ ...pdf, projectTitle })
+  const openPdfLightbox = (pdf, projectTitle) => {
+    setPdfPage(1)
+    setPdfLightbox({ ...pdf, projectTitle, chapters: pdf.chapters })
+  }
 
   // 性能：项目视频仅进入可视区域时播放，离开立即暂停，避免长滚动下常驻硬解占用
   useEffect(() => {
@@ -284,7 +354,7 @@ export default function Projects() {
             <article
               key={p.id}
               className={`project-card reveal ${i % 2 === 1 ? 'project-reverse' : ''} ${p.pdfs ? 'project-pdf-card' : ''}`}
-              onClick={p.pdfs ? undefined : () => openLightbox(p.images, 0, p.title)}
+              onClick={p.pdfs ? undefined : () => openLightbox(p.images, 0, p.title, p.chapters)}
             >
               <div className="project-media">
                 {p.pdfs ? (
@@ -304,7 +374,7 @@ export default function Projects() {
                           <span className="pdf-thumb-icon">▤</span>
                           <b>{pdf.label}</b>
                           <i>{pdf.en}</i>
-                          <em>PDF Preview</em>
+                          <em>点击打开 · Open Preview</em>
                         </div>
                       </div>
                     ))}
@@ -345,7 +415,7 @@ export default function Projects() {
                   {p.tag}
                   {p.en_tag && <em>{p.en_tag}</em>}
                 </div>
-                <h3 className="project-title">{p.title}</h3>
+                <h3 className={`project-title${p.compactTitle ? ' project-title-compact' : ''}`}>{p.title}</h3>
                 {p.badges && (
                   <div className="project-badges">
                     {p.badges.map((b) => (
@@ -467,6 +537,7 @@ export default function Projects() {
             ✕
           </div>
           <div className="lb-panel" onClick={(e) => e.stopPropagation()}>
+            <ChapterBar chapters={lightbox.chapters} currentPage={lightbox.index + 1} />
             <div className="lb-stage">
               <img
                 key={lightbox.index}
@@ -521,8 +592,13 @@ export default function Projects() {
                 </button>
               </div>
             </div>
+            <ChapterBar chapters={pdfLightbox.chapters} currentPage={pdfPage} />
             <div className={`pdf-lb-frame ${pdfLightbox.pageRatio ? 'pdf-lb-frame-fit' : ''}`}>
-              <PdfViewer src={pdfLightbox.src} title={pdfLightbox.en} />
+              <PdfViewer
+                src={pdfLightbox.src}
+                title={pdfLightbox.en}
+                onPageChange={setPdfPage}
+              />
             </div>
             <div className="pdf-lb-hint">
               ESC 关闭 · Open in New Tab for the best reading experience
@@ -641,6 +717,10 @@ export default function Projects() {
           font-size: clamp(44px, 4.6vw, 76px);
           font-weight: 400; line-height: 1;
           margin-bottom: 8px;
+        }
+        .project-title-compact {
+          font-size: clamp(27px, 2.8vw, 42px) !important;
+          letter-spacing: 0.02em;
         }
         .project-badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 16px; }
         .badge-award {
@@ -843,6 +923,52 @@ export default function Projects() {
         .lb-title b { font-family: var(--font-en); font-size: 17px; letter-spacing: 0.05em; }
         .lb-title span { font-size: 12px; color: rgba(255,255,255,0.7); font-family: var(--font-en); letter-spacing: 0.08em; }
 
+        /* ---------- 章节进度条（灯箱顶部章节名指示器） ---------- */
+        .chapter-wrap {
+          flex: none; width: 100%;
+          padding: 10px 16px 9px;
+          display: flex; flex-direction: column; align-items: center; gap: 8px;
+          background: linear-gradient(180deg, rgba(255, 247, 234, 0.97), rgba(255, 238, 214, 0.94));
+          border-bottom: 1px solid var(--line);
+        }
+        .lb-panel .chapter-wrap { border-radius: var(--radius) var(--radius) 0 0; }
+        .chapter-tag {
+          max-width: 100%;
+          font-family: var(--font-en);
+          font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+          color: var(--ink-3);
+          background: rgba(255, 255, 255, 0.72);
+          border: 1px solid var(--line);
+          padding: 4px 14px; border-radius: 999px;
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+          cursor: default;
+        }
+        .chapter-tag-on {
+          color: #fff;
+          background: var(--grad-main);
+          border-color: transparent;
+          box-shadow: 0 6px 18px rgba(255, 90, 31, 0.32);
+          cursor: pointer;
+        }
+        .chapter-bar { width: 100%; display: flex; gap: 3px; align-items: stretch; }
+        .chapter-seg {
+          position: relative; min-width: 10px; height: 7px;
+          border: none; padding: 0; border-radius: 999px;
+          background: rgba(255, 122, 0, 0.15);
+          cursor: pointer; overflow: hidden;
+          transition: transform 0.25s ease;
+        }
+        .chapter-seg:hover { transform: scaleY(1.8); }
+        .chapter-seg-fill {
+          position: absolute; inset: 0;
+          border-radius: 999px;
+          background: var(--grad-main);
+          transform: scaleX(0); transform-origin: left;
+          transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .chapter-seg-cur .chapter-seg-fill { transform: scaleX(1); }
+        .chapter-seg-active { outline: 2px solid var(--orange-red); outline-offset: 1px; }
+
         /* ---------- PDF 灯箱（iframe 内嵌预览） ---------- */
         .pdf-lb-modal {
           position: fixed; inset: 0; z-index: 9999;
@@ -956,6 +1082,16 @@ export default function Projects() {
           .project-pdf-card .project-pdfs { height: auto; }
           .project-pdf-card .pdf-thumb { aspect-ratio: 3 / 4; height: auto; min-height: 0; }
           .pdf-lb-title i { display: none; }
+        }
+
+        @media (max-width: 760px) {
+          .project-title { font-size: clamp(34px, 9vw, 44px); }
+          .project-title-compact { font-size: clamp(24px, 6.5vw, 30px) !important; }
+          .project-pdf-card .project-title { font-size: clamp(24px, 6.5vw, 30px); }
+          .chapter-wrap { padding: 8px 12px 7px; gap: 6px; }
+          .chapter-tag { font-size: 11px; padding: 3px 10px; }
+          .chapter-bar { gap: 2px; }
+          .chapter-seg { height: 6px; min-width: 8px; }
         }
       `}</style>
     </section>
